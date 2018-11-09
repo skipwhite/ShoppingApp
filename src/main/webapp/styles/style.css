@@ -1,0 +1,63 @@
+body{
+
+}
+
+.containers {
+
+	margin: 0 7%;
+}
+
+#header{
+    background: url("https://assets.bonappetit.com/photos/58000512a9151a0762f43fdb/master/w_1200,c_limit/nuts-almonds-cashews-pistachios-pecans.jpg") center center / cover no-repeat;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+#mainSearch{
+    width:40em;
+}
+
+.navbar-inverse {
+	background-color: #663300;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+}
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #b38600;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+    padding: 10px 30px;
+    font-size: 1.2em;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
