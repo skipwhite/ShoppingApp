@@ -81,9 +81,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-6">
-			<div class="thumbnail">
-				<img src="<c:out value='${ctx}'/>/photo/nut1.jpg">
-			</div>
+			<c:forEach var="img" items="${imgs}">
+				<div class="thumbnail">
+					<img src="data:image/jpg;base64,${img}" alt="No image">
+				</div>
+			</c:forEach>
 		</div>
 		<div class="col-sm-6">
             <div>
@@ -97,22 +99,11 @@
 					<span>銷售量: ${pd.salesQty} </span> 					
 				</div>	
 				<div>
-					<h3>購物車數量</h3>
-					<c:forEach var="i" items="${beanCart}">
-						<ol>
-							<li>商品ID: ${i.key.productId}</li>
-							<li>商品名稱: ${i.key.name}</li>
-							<li>商品數量: ${i.value}</li>
-							<li>商品價格: ${i.key.price}</li>
-						</ol>
-					</c:forEach>
-				</div>
-				<div>
 					<h2>
 						<span>$</span>${pd.price}
 					</h2>
 				</div>
-				<form method="get" action="<c:out value='${ctx}'/>/buy">
+				<form method="get" action="<c:out value='${ctx}'/>/addToCart">
 					<div>
                         <div>
                             	數量: 
@@ -125,22 +116,33 @@
                             </button>
                         </div>
                         <div>
-                            <button class="btn btn-primary btn-default" type="submit" name="buy">加入購物車</button>
-                            <button class="btn btn-primary btn-default" type="submit" name="check">直接購買真的結帳</button>   
+                            <button class="btn btn-primary btn-default" type="submit" name="action" value="addToCart">加入購物車</button>
+                            <button class="btn btn-primary btn-default" type="submit" name="action" value="bill">結帳</button>   
                         </div>
 					</div>
 					<input type="hidden" name="productId" value="${pd.productId}">
 					現在的商品ID是: ${pd.productId}
+					<h3>購物車數量</h3>
+					<c:forEach var="bean" items="${map}">
+						<ol>
+							<li>Map商品ID: ${bean.key.productId}</li>
+							<li>商品數量: ${bean.value}</li>
+							<li>商品單價: ${bean.key.price}</li>
+						</ol>
+					</c:forEach>
+
 				</form>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-1">
-			<div class="thumbnail">
-				<img src="<c:out value='${ctx}'/>/photo/nut2.jpg">
+		<c:forEach var="img" items="${imgs}">
+			<div class="col-lg-1">
+					<div class="thumbnail">
+						<img src="data:image/jpg;base64,${img}" alt="No image">
+					</div>
 			</div>
-		</div>
+		</c:forEach>
 	</div>
     <div>
         <h3>${pd.dscr}</h3>

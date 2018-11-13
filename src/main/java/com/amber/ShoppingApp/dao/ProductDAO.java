@@ -15,34 +15,14 @@ public interface ProductDAO {
 	
 	ProductBean selectByPrimaryKey(String productId) throws SQLException, Exception;
 	
-	/*
-	 * insert DateBeam
-	 */
 	int insert(ProductBean record) throws SQLException, Exception;
 
-	/*
-	 * insert DateBeam selective
-	 */
 	int insertSelective(ProductBean record) throws SQLException, Exception;
 
-	/*
-	 * update DateBeam selective by PK
-	 */
 	int updateByPrimaryKeySelective(ProductBean record) throws SQLException, Exception;
 
-	/*
-	 * update DateBeam selective
-	 */
 	int updateByPrimaryKey(ProductBean record) throws SQLException, Exception;
 
-	/*
-	 * delete DateBeam by PK
-	 */
 	int deleteByPrimaryKey(String productId) throws SQLException, Exception;
 	
-//	Map<String, ProductBean> checkCart(Cookie[] cookie) throws SQLException, Exception;
-
-	Map<ProductBean, String> checkCart(HttpServletRequest request) throws SQLException, Exception;
-	
-	Map<String, String> addToCart(String addProductId, String qty, Map<String, String> cart) throws Exception;
 }

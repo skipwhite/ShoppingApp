@@ -3,7 +3,7 @@ package com.amber.ShoppingApp.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.amber.ShoppingApp.model.ODBean;
+import com.amber.ShoppingApp.model.noUse.ODBean;
 
 public interface ODService {
 	

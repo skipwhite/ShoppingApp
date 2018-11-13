@@ -36,7 +36,7 @@ public interface UserService {
 	 */
 	int deleteByPrimaryKey(String userId) throws SQLException, Exception;
 	
-	int tryCreateUser(UserBean record) throws SQLException, Exception;
+	int createUser(UserBean record) throws SQLException, Exception;
 
 	boolean login(String userId, String password) throws SQLException, Exception;
 }

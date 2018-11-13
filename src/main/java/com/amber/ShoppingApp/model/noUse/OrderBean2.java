@@ -1,9 +1,11 @@
-package com.amber.ShoppingApp.model;
+package com.amber.ShoppingApp.model.noUse;
 
+import java.io.InputStream;
 import java.io.Serializable;
-import java.util.List;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
-public class ODBean implements Serializable {
+public class OrderBean2 implements Serializable {
 	/**
 	 * 
 	 */
@@ -12,16 +14,13 @@ public class ODBean implements Serializable {
 	private String userId;
 	private Integer total;
 	
-	//ADD
-	private List<OrderDetailBean> odbList;
-	
-	public ODBean(String poNo, String userId, Integer total) {
+	public OrderBean2(String poNo, String userId, Integer total) {
 		super();
 		this.poNo = poNo;
 		this.userId = userId;
 		this.total = total;
 	}
-	public ODBean() {
+	public OrderBean2() {
 		// TODO Auto-generated constructor stub
 	}
 	public String getUserId() {
@@ -41,12 +40,6 @@ public class ODBean implements Serializable {
 	}
 	public void setPoNo(String poNo) {
 		this.poNo = poNo;
-	}
-	public List<OrderDetailBean> getOdbList() {
-		return odbList;
-	}
-	public void setOdbList(List<OrderDetailBean> odbList) {
-		this.odbList = odbList;
 	}
 
 }

@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.amber.ShoppingApp.model.ODBean;
 import com.amber.ShoppingApp.model.OrderBean;
 import com.amber.ShoppingApp.model.OrderDetailBean;
 import com.amber.ShoppingApp.model.ProductBean;
+import com.amber.ShoppingApp.model.noUse.ODBean;
 import com.amber.ShoppingApp.service.ODService;
 import com.amber.ShoppingApp.service.OrderDetailService;
 import com.amber.ShoppingApp.service.OrderService;
@@ -26,23 +26,15 @@ import com.amber.ShoppingApp.service.impl.OrderServiceImpl;
 import com.amber.ShoppingApp.service.impl.ProductServiceImpl;
 import com.amber.ShoppingApp.util.SerialUtil;
 
-@WebServlet("/checkOut")
-public class CheckOut extends HttpServlet {
+@WebServlet("/bill")
+public class BillServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request, response);
-	}
 	
-	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String sendOrder = request.getParameter("sendOrder");
-		String checkOrder = request.getParameter("checkOrder");
-		String view = "/jsp/checkOut.jsp";
-		
+	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
+		String view = "/jsp/bill.jsp";
 		//判斷是否登入
+		//TODO 改用filter
 		String userId = (String) request.getSession().getAttribute("login");
 		if (userId == null) {
 			view = "/jsp/login.jsp";
@@ -50,15 +42,14 @@ public class CheckOut extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		}
-
-		//在結帳頁面按下結帳,轉至訂單完成頁面
-		if(sendOrder != null) {
-			sendOrder(request,response);
-			return;
+		check(request,response);
+		
+		if (action.equals("sendOrder")) {
+			sendOrder(request, response);
 		}
-		if(checkOrder != null) {
+		if (action.equals("checkOrder")) {
 			try {
-				checkOrder(request,response);
+				checkOrder(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -66,12 +57,55 @@ public class CheckOut extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return;
+		}
+	}
+
+	private void check(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ProductService service = new ProductServiceImpl();
+		String view = "/jsp/bill.jsp";
+		Integer totalPrice = 0;
+		
+    	try {
+			Map<ProductBean, String> map = service.checkCookie(request);
+			request.setAttribute("beanCart", map);
+			for (Map.Entry<ProductBean, String> entry : map.entrySet()) {
+				//計算商品總額
+				Integer qty = Integer.parseInt(entry.getValue());
+				Integer price = entry.getKey().getPrice();
+				System.out.println(entry.getKey() + "/" + entry.getValue());
+				System.out.println(price + "/" + qty + "before totalPrice" + totalPrice);
+				totalPrice += price * qty;
+				System.out.println("after totalPrice" + totalPrice);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		//轉至結帳頁面
-		check(request,response);
+//		//取得購物車
+//		try {
+//			Map<ProductBean, String> beanCart = service.checkCart(request);
+//			request.getSession().setAttribute("beanCart", beanCart);
+//			for (Map.Entry<ProductBean, String> entry : beanCart.entrySet()) {
+//				//計算商品總額
+//				Integer qty = Integer.parseInt(entry.getValue());
+//				Integer price = entry.getKey().getPrice();
+//				System.out.println(entry.getKey() + "/" + entry.getValue());
+//				System.out.println(price + "/" + qty + "before totalPrice" + totalPrice);
+//				totalPrice += price * qty;
+//				System.out.println("after totalPrice" + totalPrice);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		request.setAttribute("totalPrice", totalPrice);
+		RequestDispatcher rd = request.getRequestDispatcher(view);
+		rd.forward(request, response);
 	}
+	
 	
 	private void checkOrder(HttpServletRequest request, HttpServletResponse response) throws SQLException, Exception {
 		String view = "/jsp/orderComplete.jsp";
@@ -106,33 +140,6 @@ public class CheckOut extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	private void check(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ProductService service = new ProductServiceImpl();
-		String view = "/jsp/checkOut.jsp";
-		Integer total = 0;
-		
-		//取得購物車
-		try {
-			Map<ProductBean, String> beanCart = service.checkCart(request);
-			request.getSession().setAttribute("beanCart", beanCart);
-			for (Map.Entry<ProductBean, String> entry : beanCart.entrySet()) {
-				//計算商品總額
-				Integer qty = Integer.parseInt(entry.getValue());
-				Integer price = entry.getKey().getPrice();
-				System.out.println(entry.getKey() + "/" + entry.getValue());
-				System.out.println(price + "/" + qty + "before total" + total);
-				total += price * qty;
-				System.out.println("after total" + total);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("total", total);
-		
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
-	}
 	
 	
 	private void sendOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -140,10 +147,11 @@ public class CheckOut extends HttpServlet {
 		OrderService os = new OrderServiceImpl();
 		OrderDetailService ods = new OrderDetailServiceImpl();
 		String view = "/jsp/orderComplete.jsp";
-		Integer total = 0;
+		Integer totalPrice = 0;
 		String poNo = "";
 		String userId = (String) request.getSession().getAttribute("login");
 		
+		//TODO 挪到service, 注意回傳什麼OK/失敗 錯誤的話exception要做什麼處理
 		//取得購物車
 		try {
 			Map<ProductBean, String> beanCart = service.checkCart(request);
@@ -156,6 +164,7 @@ public class CheckOut extends HttpServlet {
 				Integer qty = Integer.parseInt(entry.getValue());
 				System.out.println(poNo);
 				OrderDetailBean odb = new OrderDetailBean(item.toString(), poNo, productId, qty);
+				// TODO 
 				try {
 					ods.insert(odb);
 				} catch (Exception e){
@@ -165,13 +174,13 @@ public class CheckOut extends HttpServlet {
 				//計算商品總額
 				Integer price = entry.getKey().getPrice();
 				System.out.println(entry.getKey() + "/" + entry.getValue());
-				System.out.println(price + "/" + qty + "before total" + total);
-				total += price * qty;
-				System.out.println("after total" + total);
+				System.out.println(price + "/" + qty + "before totalPrice" + totalPrice);
+				totalPrice += price * qty;
+				System.out.println("after totalPrice" + totalPrice);
 			}
 			
 			//處理OrderBean
-			OrderBean ob = new OrderBean(poNo, userId, total);
+			OrderBean ob = new OrderBean(poNo, userId, totalPrice);
 			try {
 				os.insert(ob);
 			} catch (Exception e){
@@ -183,6 +192,7 @@ public class CheckOut extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//TODO 挪到service
 		
 		// 查詢完成的訂單
 		//取得OrderBean 和 OrderDetailBean

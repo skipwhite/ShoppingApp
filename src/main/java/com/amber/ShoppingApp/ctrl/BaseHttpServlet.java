@@ -1,4 +1,4 @@
-package com.amber.ShoppingApp;
+package com.amber.ShoppingApp.ctrl;
 
 import java.io.IOException;
 

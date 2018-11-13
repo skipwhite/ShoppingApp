@@ -81,21 +81,18 @@
     <main class="container p-5">
 		<form action="<c:out value='${ctx}'/>/login" method="post">
                 <div>
-		            <h2>註冊</h2>
+		            <h2>登入</h2>
 		        </div>
 		        <div class="form-group">
-		            <input autocomplete="off" autofocus class="form-control" name="userId" placeholder="使用者代號" type="text" value="${userId}">
+		            <input autofocus class="form-control" name="userId" placeholder="使用者代號" type="text" value="${userId}" required>
 		        </div>
 		        <div class="form-group">
-		            <input autocomplete="off" autofocus class="form-control" name="password" placeholder="密碼" type="text">
+		            <input autofocus class="form-control" name="password" placeholder="密碼" type="password" required>
 		        </div>
-		        <ul>
-					<c:forEach items="${errMessage}" var="content">
-						<li><c:out value="${content}" /></li>
-					</c:forEach>
-				</ul>
-
-		    <button class="btn btn-primary btn-lg" type="submit">註冊</button>
+				<c:forEach items="${errMessage}" var="content">
+					<c:out value="${content}" /><br>
+				</c:forEach>
+		    <button class="btn btn-primary btn-lg" type="submit" name ="action" value="login">登入</button>
 		</form>
 	</main>	
 

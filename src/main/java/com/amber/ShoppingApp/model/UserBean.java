@@ -12,23 +12,18 @@ public class UserBean implements Serializable {
 	private String name;
 	private String email; 
 	private String password;
-	private Integer salt;
+	private String zipCode; 
+	private String address;
+	private String phone;
+	private String shipStore;
+	private String role;
 	
-	public UserBean(String userId, String name, String email, String password, Integer salt) {
-		super();
-		this.userId = userId;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.salt = salt;
-	}
 	public UserBean() {
 		// TODO Auto-generated constructor stub
 	}
 	public String getUserId() {
 		return userId;
 	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -50,11 +45,36 @@ public class UserBean implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Integer getSalt() {
-		return salt;
+	public String getZipCode() {
+		return zipCode;
 	}
-	public void setSalt(Integer salt) {
-		this.salt = salt;
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
-	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getShipStore() {
+		return shipStore;
+	}
+	public void setShipStore(String shipStore) {
+		this.shipStore = shipStore;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/common/header.jsp"%>
-<title>註冊頁面</title>
+<title>結帳頁面</title>
 </head>
 <body> 
 <nav class="navbar navbar-inverse">
@@ -73,41 +73,75 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+ 
+<div class="container">
+    <div>
+        <h2>Shopping App | 結帳</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-7">
+            <h3>訂單商品</h3>
+        </div>
+        <div class="col-sm-1">
+            <h4>單價</h4>
+        </div>
+        <div class="col-sm-1">
+            <h4>數量</h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>總價</h4>
+        </div>        
+    </div>
+	<c:forEach var="i" items="${beanCart}">
+	    <div class="row">
+	        <div class="col-sm-7"><img>${i.key.name}</div>
+	        <div class="col-sm-1">${i.key.price}</div>
+	        <div class="col-sm-1">${i.value}</div>
+	        <div class="col-sm-3">
+	            $250單位總價
+	        </div>        
+	    </div>
+    </c:forEach>
+    		    <h2>TOTAL: ${totalPrice}$</h2>
+    <div class="row">
+    配送方式
+        <div>
+          <input type="radio" checked="checked" name="con"> 7-11取貨 
+        </div>
+        <div>
+          <input type="radio" checked="checked" name="post"> 宅配 
+        </div>
+        <div class="address">
+            <div class="form-group">
+		            <input autofocus class="form-control" name="name" placeholder="收件者" type="text">
+		    </div>
+            <div class="form-group">
+		            <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text">
+		    </div>  
+            <div class="form-group">
+		            <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" type="text">
+		    </div>          
+            <div class="form-group">
+		            <input autofocus class="form-control" name="city" placeholder="城市" type="text">
+		    </div>
+            <div class="form-group">
+		            <input autofocus class="form-control" name="area" placeholder="區" type="text">
+		    </div>
+            <div class="form-group">
+		            <input autofocus class="form-control" name="address" placeholder="樓層街路" type="text">
+		    </div>
+         
+        </div>
+
+    </div>
+<form method="get" action="<c:out value='${ctx}'/>/checkOut">
+<button type="submit" name="action" value="sendOrder" "btn btn-primary btn-default btn-lg" style="background-color: #f0ad4e; border-color: #eea236; position:absolute; right:27%; padding: 10px 70px;">結帳</button>
+<button type="submit" name="action" value="checkOrder" "btn btn-primary btn-default btn-lg" style="background-color: #f0ad4e; border-color: #eea236; position:absolute; right:50%; padding: 10px 70px;">查看訂單不結帳</button>
+</form>
+</div>
 
 
-
-
-
-    <main class="container p-5">
-		<form action="<c:out value='${ctx}'/>/register" method="post">
-                <div>
-		            <h2>註冊</h2>
-		        </div>
-		        <div class="form-group">
-		            <input autofocus class="form-control" name="userId" placeholder="使用者代號" type="text" value="${userId}" required>
-		        </div>
-		        <div class="form-group">
-		            <input autofocus class="form-control" name="name" placeholder="姓名" type="text" value="${name}" required>
-		        </div>
-		        <div class="form-group">
-		            <input autofocus class="form-control" name="email" placeholder="Email" type="text" value="${email}" required>
-		        </div>
-		        <div class="form-group">
-		            <input autofocus class="form-control" name="password" placeholder="密碼" type="password" required pattern=".{8,20}" title="至少8-20個字元包含英文數字">
-		        </div>
-		        <div class="form-group">
-		            <input autofocus class="form-control" name="password2" placeholder="再次確認密碼" type="password" required pattern=".{8,20}" title="至少8-20個字元包含英文數字">
-		        </div>
-
-		        <ul>
-					<c:forEach items="${errMessage}" var="content">
-						<li><c:out value="${content}" /></li>
-					</c:forEach>
-				</ul>
-
-		    <button class="btn btn-primary btn-lg" type="submit" name ="action" value="register">註冊</button>
-		</form>
-	</main>	
 
 <%@ include file="/common/footer.jsp"%>
 </body>

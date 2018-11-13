@@ -1,4 +1,4 @@
-package com.amber.ShoppingApp.ctrl;
+package com.amber.ShoppingApp.ctrl.noUse;
 
 import java.io.IOException;
 import java.io.PrintWriter;

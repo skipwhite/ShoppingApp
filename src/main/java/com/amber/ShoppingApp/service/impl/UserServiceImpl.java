@@ -1,5 +1,8 @@
 package com.amber.ShoppingApp.service.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -7,6 +10,7 @@ import com.amber.ShoppingApp.dao.UserDAO;
 import com.amber.ShoppingApp.dao.impl.UserDAOImpl;
 import com.amber.ShoppingApp.model.UserBean;
 import com.amber.ShoppingApp.service.UserService;
+import com.amber.ShoppingApp.util.ConnectionDB;
 
 public class UserServiceImpl implements UserService {
 
@@ -30,8 +34,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int insertSelective(UserBean record) throws SQLException, Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		UserDAO dao = new UserDAOImpl();
+		return dao.insertSelective(record);
 	}
 
 	@Override
@@ -53,15 +57,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int tryCreateUser(UserBean record) throws SQLException, Exception {
-		UserDAO dao = new UserDAOImpl();
-		return dao.tryCreateUser(record);
+	public int createUser(UserBean record) throws SQLException, Exception {
+		return insertSelective(record);
 	}
 
 	@Override
 	public boolean login(String userId, String password) throws SQLException, Exception {
-		UserDAO dao = new UserDAOImpl();
-		return dao.login(userId, password);
+		//傳進來已經加密的password
+		UserBean bean = new UserBean();
+		// Check if user exist, select by userId
+		bean = selectByPrimaryKey(userId);
+		if (bean != null) {
+			// Check if password correct
+			if (bean.getPassword().equals(password)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

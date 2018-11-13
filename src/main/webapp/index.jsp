@@ -17,7 +17,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<c:out value='${ctx}'/>/index.jsp">ShoppingApp</a>
+      <a class="navbar-brand" href="<c:out value='${ctx}'/>">ShoppingApp</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -63,7 +63,7 @@
             <% } %>
             <li><a href="#">我的訂單</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">登出</a></li>
+            <li><a href="<c:out value='${ctx}'/>/login?action=logout">登出</a></li>
           </ul>
         </li>         
         <% }%>  
@@ -76,11 +76,10 @@
 
 
 
-	<a href="<c:out value='${ctx}'/>/jsp/register.jsp">Register</a> 
-	<a href="<c:out value='${ctx}'/>/jsp/login.jsp">Login</a>
-	<a href="<c:out value='${ctx}'/>/logout">Logout</a>
+<a href="<c:out value='${ctx}'/>/addToCart?action=bill">結帳</a>  
 	<a href="<c:out value='${ctx}'/>/jsp/test.jsp">Test</a>
 	<a href="<c:out value='${ctx}'/>/jsp/upload.jsp">Upload</a>
+	<a href="<c:out value='${ctx}'/>/jsp/newProduct.jsp">New Product</a>
 	
 <div class="container">
 	<div class="row">
@@ -91,20 +90,17 @@
 				</a>
 			</div>
 		</div>
-	<div class="col-lg-4 col-sm-6">
-		<div class="thumbnail">
-			<a href="<c:out value='${ctx}'/>/product?productId=00002" class="pic">
-				<img src="<c:out value='${ctx}'/>/photo/nut2.jpg">
-			</a>
-		</div>
-	</div>
-	<div class="col-lg-4 col-sm-6">
-		<div class="thumbnail">
-			<a href="<c:out value='${ctx}'/>/product?productId=00003" class="pic">
-				<img src="<c:out value='${ctx}'/>/photo/nut3.jpg">
-			</a>
-		</div>
-	</div>
+		<c:forEach var="i" items="${map}">
+			<div class="col-lg-4 col-sm-6">
+				<div class="thumbnail">
+					<a href="<c:out value='${ctx}'/>/product?productId=${i.key.productId}" class="pic">
+						<img src="data:image/jpg;base64,${i.value}" alt="No image">
+					</a>
+					名字${i.key.name}價格${i.key.price}
+				</div>
+			</div>
+		</c:forEach>
+
 	</div>
 </div>
 

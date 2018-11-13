@@ -61,3 +61,7 @@ main img
     line-height: 1.3333333;
     border-radius: 6px;
 }
+
+#blah {
+  max-width:180px;
+}

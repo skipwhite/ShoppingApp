@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.amber.ShoppingApp.dao.ODDAO;
-import com.amber.ShoppingApp.model.ODBean;
 import com.amber.ShoppingApp.model.OrderDetailBean;
+import com.amber.ShoppingApp.model.noUse.ODBean;
 import com.amber.ShoppingApp.util.ConnectionDB;
 
 public class ODDAOImpl implements ODDAO {

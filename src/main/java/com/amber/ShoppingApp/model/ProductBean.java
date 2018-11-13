@@ -22,7 +22,16 @@ public class ProductBean implements Serializable {
 	private Integer salesQty;
 	private Boolean launched;
 	
-	
+	public ProductBean(String name, String dscr, String category, Integer price,
+			Integer inventory, Boolean launched) {
+		super();
+		this.name = name;
+		this.dscr = dscr;
+		this.category = category;
+		this.price = price;
+		this.inventory = inventory;
+		this.launched = launched;
+	}
 	
 	public ProductBean(String productId, String name, String dscr, String category, Integer price, Integer viewCount,
 			Integer inventory, String tag, BigDecimal discount, Integer salesQty, Boolean launched) {

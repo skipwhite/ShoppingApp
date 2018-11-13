@@ -4,12 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import com.amber.ShoppingApp.model.ProductBean;
-import com.amber.ShoppingApp.model.TestBean;
-import com.amber.ShoppingApp.model.UserBean;
+import com.amber.ShoppingApp.model.ProductImgBean;
 
 public interface ProductService {
 	
@@ -25,8 +23,9 @@ public interface ProductService {
 	/*
 	 * insert DateBeam selective
 	 */
-	int insertSelective(ProductBean record) throws SQLException, Exception;
+//	int insertSelective(ProductBean record) throws SQLException, Exception;
 
+	int insertSelective(ProductBean record, List<ProductImgBean> pibs) throws SQLException, Exception;
 	/*
 	 * update DateBeam selective by PK
 	 */
@@ -42,9 +41,16 @@ public interface ProductService {
 	 */
 	int deleteByPrimaryKey(String productId) throws SQLException, Exception;
 	
-//	Map<String, ProductBean> checkCart(Cookie[] cookie) throws SQLException, Exception;
 	
-	Map<ProductBean, String> checkCart(HttpServletRequest request) throws SQLException, Exception;
+//	Map<ProductBean, String> checkCart(HttpServletRequest request) throws SQLException, Exception;
 	
-	Map<String, String> addToCart(String addProductId, String qty, Map<String, String> cart) throws Exception;
+//	Map<String, String> addToCart(String addProductId, String qty, Map<String, String> cart) throws Exception;
+	
+	Map<ProductBean, String> checkCookie(HttpServletRequest request) throws SQLException, Exception;
+
+	int createProduct(ProductBean pb, List<ProductImgBean> pibs) throws SQLException, Exception;
+	
+//	Map<ProductBean, List<String>> selectAllProduct() throws SQLException, Exception;
+	
+	Map<ProductBean, String> selectAllProductOneImg() throws SQLException, Exception;
 }

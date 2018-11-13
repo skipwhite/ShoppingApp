@@ -3,9 +3,6 @@ package com.amber.ShoppingApp.ctrl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +19,15 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.io.IOUtils;
 
-import com.amber.ShoppingApp.util.ConnectionDB;
+import com.amber.ShoppingApp.model.ProductBean;
+import com.amber.ShoppingApp.model.ProductImgBean;
+import com.amber.ShoppingApp.service.ProductService;
+import com.amber.ShoppingApp.service.impl.ProductServiceImpl;
 
 
-@WebServlet("/upload")
+@WebServlet("/newProduct")
 @MultipartConfig
-public class Upload extends HttpServlet {
+public class NewProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,65 +39,60 @@ public class Upload extends HttpServlet {
 	}
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("name");
+		String dscr = request.getParameter("dscr");
+		String category = request.getParameter("category");
+		String price = request.getParameter("price");
+		String inventory = request.getParameter("inventory");
+		String launched = request.getParameter("launched");
+		
+//	    Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+//	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+//	    InputStream fileContent = filePart.getInputStream();
+//	    byte[] img = IOUtils.toByteArray(fileContent);
+
 	    List<Part> fileParts = request.getParts().stream().filter(part -> "file".equals(part.getName())).collect(Collectors.toList()); // Retrieves <input type="file" name="file" multiple="true">
 	    List<byte[]> fileList = new ArrayList<>();
+	    List<ProductImgBean> pibs = new ArrayList<>();
 	    
 	    for (Part filePart : fileParts) {
 	        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 	        InputStream fileContent = filePart.getInputStream();
 	        byte[] fileAsByteArray = IOUtils.toByteArray(fileContent);
-	        fileList.add(fileAsByteArray);
+//	        fileList.add(fileAsByteArray);
+	        ProductImgBean pib = new ProductImgBean(fileAsByteArray);
+	        pibs.add(pib);
 	    }
 		
-	    // ByteArray
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		int count = 0;
-		
+		ProductBean pb = new ProductBean(name,dscr,category,Integer.parseInt(price),Integer.parseInt(inventory), new Boolean(launched));
+		ProductService ps = new ProductServiceImpl();
 		try {
-			conn = ConnectionDB.getConnection("amberDS");
-			
-			for(byte[] img : fileList) {
-				System.out.println("executed");
-				// Check current item no.
-				String SELECT_MAX_ITEM = "select MAX(item) as item from AB_PRODUCT_IMG where product_id = ?";
-				ps = conn.prepareStatement(SELECT_MAX_ITEM);
-				ps.setString(1, "00001");
-				rs = ps.executeQuery();
-				
-				Integer maxItem = 1;
-				while (rs.next()) {
-					if(rs.getString(1) != null) {
-						maxItem = Integer.parseInt(rs.getString(1)) + 1;
-					}
-				}
-				
-				String INSERT = "insert into AB_PRODUCT_IMG values(?,?,?)";
-				ps = conn.prepareStatement(INSERT);
-				ps.setString(1, "00001");
-				ps.setString(2, maxItem.toString());
-				ps.setBytes(3, img);
-				count = ps.executeUpdate();
-			}
-			
-			System.out.println("insert count : " + count);
+			ps.createProduct(pb, pibs);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			ConnectionDB.closeJDBCConnection(conn);
-			ConnectionDB.closePreparedStatement(ps);
-			ConnectionDB.closeResultSet(rs);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
 		
-		//	    String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
-//	    Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-//	    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-//	    InputStream fileContent = filePart.getInputStream();
-//	    byte[] fileAsByteArray = IOUtils.toByteArray(fileContent);
-//	    
+		
+//		ProductImgService pis = new ProductImgServiceImpl();
+//		try {
+//			ps.insertSelective(pb);
+//			pis.insert(pib);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+	    
 //		ProductImgService service = new ProductImgServiceImpl();
 //		try {
 //			ProductImgBean bean = new ProductImgBean();
@@ -184,7 +179,7 @@ public class Upload extends HttpServlet {
 //		}	    
 
 	    
-		RequestDispatcher rd = request.getRequestDispatcher("/jsp/upload.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/jsp/newProduct.jsp");
 		rd.forward(request, response);
 	}
 

@@ -11,26 +11,34 @@ public class ProductImgBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String productId;
-	private String imgName;
-	private InputStream img;
+	private String item;
+	private byte[] img;
+	public ProductImgBean(byte[] img) {
+		super();
+		this.img = img;
+	}
+	public ProductImgBean() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getProductId() {
 		return productId;
 	}
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
-	public String getImgName() {
-		return imgName;
+	public String getItem() {
+		return item;
 	}
-	public void setImgName(String imgName) {
-		this.imgName = imgName;
+	public void setItem(String item) {
+		this.item = item;
 	}
-	public InputStream getImg() {
+	public byte[] getImg() {
 		return img;
 	}
-	public void setImg(InputStream img) {
+	public void setImg(byte[] img) {
 		this.img = img;
 	}
+
 
 
 	

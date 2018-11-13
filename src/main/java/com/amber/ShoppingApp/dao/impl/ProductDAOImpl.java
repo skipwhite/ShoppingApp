@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.amber.ShoppingApp.dao.ProductDAO;
 import com.amber.ShoppingApp.model.ProductBean;
 import com.amber.ShoppingApp.util.ConnectionDB;
+import com.amber.ShoppingApp.util.SerialUtil;
 
 public class ProductDAOImpl implements ProductDAO {
 
@@ -120,8 +121,66 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public int insertSelective(ProductBean record) throws SQLException, Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int count = 0;
+		
+		try {
+			conn = ConnectionDB.getConnection("amberDS");
+			// Check current ProductId
+			String SELECT_MAX_ID = "select MAX(product_id) from AB_PRODUCT";
+			ps = conn.prepareStatement(SELECT_MAX_ID);
+			rs = ps.executeQuery();
+			
+			Integer maxItem = 0;
+			while (rs.next()) {
+				if(rs.getString(1) != null) {
+					maxItem = Integer.parseInt(rs.getString(1));
+				}
+			}
+			String productId = SerialUtil.increment(maxItem.toString(), "%05d");
+
+			
+			String INSERT = "insert into AB_PRODUCT values(?,?,?,?,?,  ?,?,?,?,?  ,? )";
+			ps = conn.prepareStatement(INSERT);
+			
+			ps.setString(1, productId);
+			ps.setString(2,record.getName());
+			ps.setString(3,record.getDscr());
+			ps.setString(4,record.getCategory());
+			ps.setInt(5,new Integer(record.getPrice()));
+			ps.setInt(6, 0);
+			ps.setInt(7,new Integer(record.getInventory()));
+			
+			if (record.getTag() != null) {
+				ps.setString(8,record.getTag());
+			} else {
+				ps.setString(8,null);
+			}
+			if (record.getDiscount() != null) {
+				ps.setBigDecimal(9,new BigDecimal(record.getDiscount().toString()));
+			} else {
+				ps.setBigDecimal(9,new BigDecimal(1));
+			}
+			ps.setInt(10,0);
+			if (record.getLaunched() != null) {
+				ps.setBoolean(11,new Boolean(record.getLaunched()));
+			} else {
+				ps.setBoolean(11,new Boolean("0"));
+			}
+			
+			count = ps.executeUpdate();
+			System.out.println("insert count : " + count);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			ConnectionDB.closeJDBCConnection(conn);
+			ConnectionDB.closePreparedStatement(ps);
+			ConnectionDB.closeResultSet(rs);
+		}
+		return count;
 	}
 
 	@Override
@@ -167,90 +226,4 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return resultList;
 	}
-
-//	@Override
-//	public Map<String, ProductBean> checkCart(Cookie[] cookie) throws SQLException, Exception {
-////		ProductBean bean = new ProductBean();
-//		Map<String, ProductBean> map = new HashMap<>();
-////    	for( int i = 0; i < cookie.length; i++) {
-////    		if(!cookie[i].getName().isEmpty() || !cookie[i].getValue().isEmpty()) {
-////    			bean = selectByPrimaryKey(cookie[i].getName());
-////    			// Sort cookie for real product ID
-////    			if (bean != null) {
-////    				map.put(bean, cookie[i].getValue());
-////    			}
-////    		}
-////    	}
-//		return map;
-//	}
-	
-//	@Override	//Bean		qty					  productId qty
-//	public Map<ProductBean, String> checkCart(Map<String, String> cart) throws SQLException, Exception {
-//		ProductBean bean = new ProductBean();
-//		Map<ProductBean, String> beanCart = new HashMap<>();
-//		
-//		if(cart == null) {
-//			throw new Exception("checkCart cart is null");
-//		}
-//		
-//		for(Map.Entry<String, String> entry : cart.entrySet()) {
-//			//從Map取出productId
-//			String productId = entry.getKey();
-//			if(productId == null) {
-//				throw new Exception("checkCart productId is null");
-//			}
-//			//用productId取出bean
-//			bean = selectByPrimaryKey(productId);
-//			//把bean, qty放入新的Map
-//			beanCart.put(bean, entry.getValue());
-//		}
-//		return beanCart;
-//	}
-	
-	@Override	//Bean		qty					  productId qty
-	public Map<ProductBean, String> checkCart(HttpServletRequest request) throws SQLException, Exception {
-		//從session取得productId和qty
-		Map<String, String> cart = (Map<String, String>) request.getSession().getAttribute("cart");
-		Map<ProductBean, String> beanCart = new HashMap<>();
-		ProductBean bean = new ProductBean();
-		
-		if(cart == null) {
-			//注意
-			throw new Exception("checkCart cart is null");
-		}
-		
-		for(Map.Entry<String, String> entry : cart.entrySet()) {
-			//從Map取出productId
-			String productId = entry.getKey();
-			if(productId == null) {
-				throw new Exception("checkCart productId is null");
-			}
-			//用productId取出bean
-			bean = selectByPrimaryKey(productId);
-			//把bean, qty放入新的Map
-			beanCart.put(bean, entry.getValue());
-		}
-		return beanCart;
-	}
-	
-	@Override
-	public Map<String, String> addToCart(String addProductId, String qty, Map<String, String> cart) throws Exception{
-		if (addProductId.isEmpty()) {
-			throw new Exception("addToCart productId is empty");
-		}
-		//判斷商品是否已存在購物車中
-		String qtyInCartS = cart.get(addProductId);
-		
-		if (qtyInCartS != null) {
-			//取得購物車中的商品數量
-			Integer qtyInCart = Integer.parseInt(qtyInCartS);
-			//更新購物車中的數量
-			Integer total = new Integer(qtyInCart + Integer.parseInt(qty));
-			cart.put(addProductId, total.toString());
-		} else {
-			cart.put(addProductId, qty.toString());
-		}
-		return cart;
-	}
-	
 }

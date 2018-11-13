@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.amber.ShoppingApp.dao.ODDAO;
 import com.amber.ShoppingApp.dao.impl.ODDAOImpl;
-import com.amber.ShoppingApp.model.ODBean;
+import com.amber.ShoppingApp.model.noUse.ODBean;
 import com.amber.ShoppingApp.service.ODService;
 
 public class ODServiceImpl implements ODService {

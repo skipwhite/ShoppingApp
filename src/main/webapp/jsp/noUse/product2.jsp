@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/common/header.jsp"%>
-<title>結帳頁面</title>
+<title>商品頁面</title>
 </head>
 <body> 
 <nav class="navbar navbar-inverse">
@@ -73,76 +73,94 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
- 
+
+
+
+
+
 <div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<c:forEach var="img" items="${imgs}">
+				<div class="thumbnail">
+					<img src="data:image/jpg;base64,${img}" alt="No image">
+				</div>
+			</c:forEach>
+		</div>
+		<div class="col-sm-6">
+            <div>
+                <h1>${pd.name}</h1>
+            </div>		
+			<div>
+				<div>			
+	            	<span class="glyphicon glyphicon-star"></span>
+					<span>人氣: ### </span>
+					<span>庫存: ${pd.inventory} </span>
+					<span>銷售量: ${pd.salesQty} </span> 					
+				</div>	
+				<div>
+					<h3>購物車數量</h3>
+					<c:forEach var="i" items="${beanCart}">
+						<ol>
+							<li>商品ID: ${i.key.productId}</li>
+							<li>商品名稱: ${i.key.name}</li>
+							<li>商品數量: ${i.value}</li>
+							<li>商品價格: ${i.key.price}</li>
+						</ol>
+					</c:forEach>
+				</div>
+				<div>
+					<h2>
+						<span>$</span>${pd.price}
+					</h2>
+				</div>
+				<form method="get" action="<c:out value='${ctx}'/>/addToCart">
+					<div>
+                        <div>
+                            	數量: 
+                            <button class="btn">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                            <input type="number" name="qty" value="1">
+                            <button class="btn">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-default" type="submit" name="action" value="addToCart">加入購物車</button>
+                            <button class="btn btn-primary btn-default" type="submit" name="action" value="bill">直接購買真的結帳</button>   
+                        </div>
+					</div>
+					<input type="hidden" name="productId" value="${pd.productId}">
+					現在的商品ID是: ${pd.productId}
+										<h3>購物車數量</h3>
+					<c:forEach var="bean" items="${map}">
+						<ol>
+							<li>Map key: ${bean.key}</li>
+							<li>Map商品ID: ${bean.key.productId}</li>
+							<li>商品數量: ${bean.value}</li>
+							<li>商品單價: ${bean.key.price}</li>
+						</ol>
+					</c:forEach>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<c:forEach var="img" items="${imgs}">
+			<div class="col-lg-1">
+					<div class="thumbnail">
+						<img src="data:image/jpg;base64,${img}" alt="No image">
+					</div>
+			</div>
+		</c:forEach>
+	</div>
     <div>
-        <h2>Shopping App | 結帳</h2>
+        <h3>${pd.dscr}</h3>
     </div>
-
-    <div class="row">
-        <div class="col-sm-7">
-            <h3>訂單商品</h3>
-        </div>
-        <div class="col-sm-1">
-            <h4>單價</h4>
-        </div>
-        <div class="col-sm-1">
-            <h4>數量</h4>
-        </div>
-        <div class="col-sm-3">
-            <h4>總價</h4>
-        </div>        
-    </div>
-	<c:forEach var="i" items="${beanCart}">
-	    <div class="row">
-	        <div class="col-sm-7"><img>${i.key.name}</div>
-	        <div class="col-sm-1">${i.key.price}</div>
-	        <div class="col-sm-1">${i.value}</div>
-	        <div class="col-sm-3">
-	            $250單位總價
-	        </div>        
-	    </div>
-    </c:forEach>
-    		    <h2>TOTAL: ${total}</h2>
-    <div class="row">
-    配送方式
-        <div>
-          <input type="radio" checked="checked" name="con"> 7-11取貨 
-        </div>
-        <div>
-          <input type="radio" checked="checked" name="post"> 宅配 
-        </div>
-        <div class="address">
-            <div class="form-group">
-		            <input autofocus class="form-control" name="name" placeholder="收件者" type="text">
-		    </div>
-            <div class="form-group">
-		            <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text">
-		    </div>  
-            <div class="form-group">
-		            <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" type="text">
-		    </div>          
-            <div class="form-group">
-		            <input autofocus class="form-control" name="city" placeholder="城市" type="text">
-		    </div>
-            <div class="form-group">
-		            <input autofocus class="form-control" name="area" placeholder="區" type="text">
-		    </div>
-            <div class="form-group">
-		            <input autofocus class="form-control" name="address" placeholder="樓層街路" type="text">
-		    </div>
-         
-        </div>
-
-    </div>
-<form method="get" action="<c:out value='${ctx}'/>/checkOut">
-<button type="submit" name="sendOrder" "btn btn-primary btn-default btn-lg" style="background-color: #f0ad4e; border-color: #eea236; position:absolute; right:27%; padding: 10px 70px;">結帳</button>
-<button type="submit" name="checkOrder" "btn btn-primary btn-default btn-lg" style="background-color: #f0ad4e; border-color: #eea236; position:absolute; right:50%; padding: 10px 70px;">查看訂單不結帳</button>
-</form>
-</div>
-
-
-
+</div>    
+    
 <%@ include file="/common/footer.jsp"%>
 </body>
 </html>

@@ -74,6 +74,12 @@ public class TestSE {
 //		}
 //		
 //	}
-		System.out.println(SerialUtil.increment("2", "%014d"));
+//		System.out.println(SerialUtil.increment("2", "%014d"));
+		Integer maxItem = 1;
+		System.out.println(maxItem);
+			maxItem = Integer.parseInt("1") + 1;
+		System.out.println(maxItem);
+	
+	
 	}
 }
