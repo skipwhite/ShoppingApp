@@ -1,6 +1,8 @@
 package com.amber.ShoppingApp;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,11 +77,26 @@ public class TestSE {
 //		
 //	}
 //		System.out.println(SerialUtil.increment("2", "%014d"));
-		Integer maxItem = 1;
-		System.out.println(maxItem);
-			maxItem = Integer.parseInt("1") + 1;
-		System.out.println(maxItem);
-	
-	
+//		Integer maxItem = 1;
+//		System.out.println(maxItem);
+//			maxItem = Integer.parseInt("1") + 1;
+//		System.out.println(maxItem);
+//	
+		//目前時間
+//		Date date = new Date();
+//		//設定日期格式-- 20181201xxxxxx 流水號
+////		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//		//進行轉換
+//		String dateString = sdf.format(date);
+////		System.out.println(SerialUtil.increment("2", "%014d"));
+//		
+//		
+//		System.out.println(dateString + SerialUtil.increment("0", "%06d"));
+//		System.out.println(SerialUtil.increment("0", "%d"));
+		String a = "20181114000001";
+		System.out.println(a.substring(8));
+		
+		
 	}
 }

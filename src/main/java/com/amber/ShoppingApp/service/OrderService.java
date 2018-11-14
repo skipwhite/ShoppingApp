@@ -3,6 +3,10 @@ package com.amber.ShoppingApp.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.amber.ShoppingApp.model.ODBean;
 import com.amber.ShoppingApp.model.OrderBean;
 import com.amber.ShoppingApp.model.OrderDetailBean;
 import com.amber.ShoppingApp.model.TestBean;
@@ -39,4 +43,7 @@ public interface OrderService {
 	 */
 	int deleteByPrimaryKey(String poNo) throws SQLException, Exception;
 	
+	HttpServletRequest confirmOrder(HttpServletRequest request, HttpServletResponse response) throws Exception ;
+	
+	ODBean checkOrder(String poNo) throws SQLException, Exception;
 }

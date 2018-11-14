@@ -1,5 +1,6 @@
 package com.amber.ShoppingApp.dao.impl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -75,6 +76,11 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public int insert(OrderBean record) throws SQLException, Exception {
+		return 0;
+	}
+
+	@Override
+	public int insertSelective(OrderBean record) throws SQLException, Exception {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -83,17 +89,47 @@ public class OrderDAOImpl implements OrderDAO {
 		try {
 			conn = ConnectionDB.getConnection("amberDS");
 			
-			String INSERT = "insert into AB_ORDER values(?,?,?)";
+			String INSERT = "insert into AB_ORDER values(?,?,?,?,? ,?,?,?,?,? ,?,?,?,?,?)";
 			ps = conn.prepareStatement(INSERT);
+			
 			if (record.getPoNo() != null) {
 				ps.setString(1, record.getPoNo());
 			} else {
-				throw new Exception("must input item");
+				throw new Exception("must input PoNo OrderDAO");
 			}
 			
+			// 2-5
 			ps.setString(2, record.getUserId());
-			ps.setInt(3, new Integer(record.getTotal()));
+			ps.setString(3, record.getName());
+			ps.setString(4, record.getPhone());
+			ps.setString(5, record.getShipId());
 			
+			// 6-10
+			ps.setString(6, record.getShipIdValue());
+			if (record.getShipStore() != null) {
+				ps.setString(7, record.getShipStore());
+			} else {
+				ps.setString(7, null);
+			}
+			ps.setString(8, record.getPayId());
+			ps.setString(9, record.getPayIdValue());
+			if (record.getZipCode() != null) {
+				ps.setString(10, record.getZipCode());
+			} else {
+				ps.setString(10, null);
+			}
+			
+			// 11-15
+			if (record.getAddress() != null) {
+				ps.setString(11, record.getAddress());
+			} else {
+				ps.setString(11, null);
+			}
+			ps.setInt(12, new Integer(record.getTotalPrice()));
+			ps.setString(13, record.getStatus());
+			ps.setBoolean(14, new Boolean(record.getInvalid()));
+			ps.setBoolean(15, new Boolean(record.getIsCommented()));
+
 			count = ps.executeUpdate();
 			System.out.println("insert count : " + count);
 		} catch (SQLException e) {
@@ -105,12 +141,6 @@ public class OrderDAOImpl implements OrderDAO {
 			ConnectionDB.closeResultSet(rs);
 		}
 		return count;
-	}
-
-	@Override
-	public int insertSelective(OrderBean record) throws SQLException, Exception {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -138,7 +168,18 @@ public class OrderDAOImpl implements OrderDAO {
 			OrderBean beam = new OrderBean();
 			beam.setPoNo(rs.getString("po_no"));
 			beam.setUserId(rs.getString("user_id"));
-			beam.setTotal(rs.getInt("total"));
+			beam.setName(rs.getString("name"));
+			beam.setPhone(rs.getString("phone"));
+			beam.setShipId(rs.getString("ship_id"));
+			beam.setShipIdValue(rs.getString("ship_id_value"));
+			beam.setShipStore(rs.getString("ship_store"));
+			beam.setPayId(rs.getString("pay_id"));
+			beam.setPayIdValue(rs.getString("pay_id_value"));
+			beam.setZipCode(rs.getString("zip_code"));
+			beam.setAddress(rs.getString("address"));
+			beam.setTotalPrice(rs.getInt("total_price"));
+			beam.setInvalid(rs.getBoolean("invalid"));
+			beam.setIsCommented(rs.getBoolean("is_commented"));
 			
 			System.out.println((++count) + ". " + beam.toString());
 

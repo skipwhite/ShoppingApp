@@ -17,7 +17,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<c:out value='${ctx}'/>/index.jsp">ShoppingApp</a>
+      <a class="navbar-brand" href="<c:out value='${ctx}'/>">ShoppingApp</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -63,7 +63,7 @@
             <% } %>
             <li><a href="#">我的訂單</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">登出</a></li>
+            <li><a href="<c:out value='${ctx}'/>/login?action=logout">登出</a></li>
           </ul>
         </li>         
         <% }%>  

@@ -83,20 +83,14 @@
 	
 <div class="container">
 	<div class="row">
-		<div class="col-lg-4 col-sm-6">
-			<div class="thumbnail">
-				<a href="<c:out value='${ctx}'/>/product?productId=00001" class="pic">
-					<img src="<c:out value='${ctx}'/>/photo/nut1.jpg">
-				</a>
-			</div>
-		</div>
 		<c:forEach var="i" items="${map}">
 			<div class="col-lg-4 col-sm-6">
 				<div class="thumbnail">
 					<a href="<c:out value='${ctx}'/>/product?productId=${i.key.productId}" class="pic">
 						<img src="data:image/jpg;base64,${i.value}" alt="No image">
 					</a>
-					名字${i.key.name}價格${i.key.price}
+					${i.key.name}<br>
+					<strong>${i.key.price}$</strong>
 				</div>
 			</div>
 		</c:forEach>

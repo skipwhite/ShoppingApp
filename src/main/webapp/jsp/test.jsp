@@ -8,7 +8,14 @@
 </head>
 <body> 
 
+<form action="<c:out value='${ctx}'/>/test" method="post">
 
+    <input autofocus class="form-control" name="name" placeholder="收件者" type="text">
+    <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text">
+    <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" type="text">
+    <input autofocus class="form-control" name="address" placeholder="地址" type="text">
+    <input type="submit" value="Submit"><br>
+</form>
 
 <form action="<c:out value='${ctx}'/>/test" method="post">
 id <input type="text" name="id" value="${id}">${id}<br>
@@ -24,6 +31,9 @@ timestamp <input type="date" name="timestamp" value="${timestamp}">${timestamp}<
 </ul>
 ${SucessMessage}
 </form>
+
+
+
 
 <%@ include file="/common/footer.jsp"%>
 </body>

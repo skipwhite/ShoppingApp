@@ -118,17 +118,19 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 		try {
 			conn = ConnectionDB.getConnection("amberDS");
 			
-			String INSERT = "insert into AB_ORDER_DTL values(?,?,?,?)";
+			String INSERT = "insert into AB_ORDER_DTL values(?,?,?,?,? ,?)";
 			ps = conn.prepareStatement(INSERT);
 			if (record.getItem() != null) {
 				ps.setString(1, record.getItem());
 			} else {
-				throw new Exception("must input item");
+				throw new Exception("must input item ODDAOImpl");
 			}
 			
 			ps.setString(2, record.getPoNo());
 			ps.setString(3, record.getProductId());
-			ps.setInt(4, new Integer(record.getQty()));
+			ps.setString(4, record.getCategory());
+			ps.setInt(5, new Integer(record.getQty()));
+			ps.setInt(6, new Integer(record.getPrice()));
 			
 			count = ps.executeUpdate();
 			System.out.println("insert count : " + count);
@@ -160,9 +162,9 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 	@Override
-	public int deleteByPrimaryKey(String poNo) throws SQLException, Exception {
+	public int deleteByPrimaryKey(String poNo, String productId) throws SQLException, Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -175,7 +177,9 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 			beam.setItem(rs.getString("item"));
 			beam.setPoNo(rs.getString("po_no"));
 			beam.setProductId(rs.getString("product_id"));
+			beam.setCategory(rs.getString("category"));
 			beam.setQty(rs.getInt("qty"));
+			beam.setPrice(rs.getInt("price"));
 			
 			System.out.println((++count) + ". " + beam.toString());
 
@@ -183,6 +187,4 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 		}
 		return resultList;
 	}
-
-
 }

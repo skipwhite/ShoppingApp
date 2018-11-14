@@ -43,6 +43,12 @@ public class Test extends HttpServlet {
 		int count = 0;
 		Date sysDate = new Date();
 		List<String> errMessage = new ArrayList<String>();
+		String shipId = (String) request.getAttribute("shipId");
+		String payId = (String) request.getAttribute("payId");
+		System.out.println("this is test.java");
+		System.out.println(shipId + "here");
+		System.out.println(payId);
+		
 		
 		String id = request.getParameter("id");
 		String num = request.getParameter("num");

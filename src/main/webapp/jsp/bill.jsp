@@ -17,7 +17,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<c:out value='${ctx}'/>/index.jsp">ShoppingApp</a>
+      <a class="navbar-brand" href="<c:out value='${ctx}'/>">ShoppingApp</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -63,7 +63,7 @@
             <% } %>
             <li><a href="#">我的訂單</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">登出</a></li>
+            <li><a href="<c:out value='${ctx}'/>/login?action=logout">登出</a></li>
           </ul>
         </li>         
         <% }%>  
@@ -76,7 +76,7 @@
  
 <div class="container">
     <div>
-        <h2>Shopping App | 結帳</h2>
+        <h2>Shopping App | 結帳 ${message}</h2>
     </div>
 
     <div class="row">
@@ -106,11 +106,18 @@
     		    <h2>TOTAL: ${totalPrice}$</h2>
     <div class="row">
     配送方式
+    <form method="post" action="<c:out value='${ctx}'/>/bill">
+    
         <div>
-          <input type="radio" checked="checked" name="con"> 7-11取貨 
+          <input type="radio" checked="checked" name="shipId" value="0"> 宅配 
+                    <input type="hidden" name="shipId" value="0"> 宅配 
+                    <input type="hidden" name="payId" value="0"> 宅配 
         </div>
         <div>
-          <input type="radio" checked="checked" name="post"> 宅配 
+          <input type="radio" name="shipId" value="1"> 7-11取貨 yo
+        </div>
+        <div>
+          <input type="radio" checked="checked" name="payId" value="0"> 信用卡 
         </div>
         <div class="address">
             <div class="form-group">
@@ -120,25 +127,23 @@
 		            <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text">
 		    </div>  
             <div class="form-group">
+		            <input autofocus class="form-control" name="shipStore" placeholder="運送店家" type="text">
+		    </div>  
+            <div class="form-group">
 		            <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" type="text">
 		    </div>          
             <div class="form-group">
-		            <input autofocus class="form-control" name="city" placeholder="城市" type="text">
-		    </div>
-            <div class="form-group">
-		            <input autofocus class="form-control" name="area" placeholder="區" type="text">
-		    </div>
-            <div class="form-group">
-		            <input autofocus class="form-control" name="address" placeholder="樓層街路" type="text">
+		            <input autofocus class="form-control" name="address" placeholder="地址" type="text">
 		    </div>
          
         </div>
-
-    </div>
-<form method="get" action="<c:out value='${ctx}'/>/checkOut">
 <button type="submit" name="action" value="sendOrder" "btn btn-primary btn-default btn-lg" style="background-color: #f0ad4e; border-color: #eea236; position:absolute; right:27%; padding: 10px 70px;">結帳</button>
 <button type="submit" name="action" value="checkOrder" "btn btn-primary btn-default btn-lg" style="background-color: #f0ad4e; border-color: #eea236; position:absolute; right:50%; padding: 10px 70px;">查看訂單不結帳</button>
+        
 </form>
+    </div>
+
+
 </div>
 
 
