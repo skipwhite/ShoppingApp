@@ -7,6 +7,9 @@ UPDATE AB_PRODUCT SET inventory = 42, sales_qty = 2 where product_id='00001';
 select * from AB_ORDER;
 select * from AB_ORDER_DTL;
 TRUNCATE TABLE AB_ORDER;
+show full columns from AB_ORDER_DTL;
+ALTER TABLE AB_ORDER_DTL
+ADD COLUMN is_commented		BIT NOT NULL DEFAULT 0 comment '已評論';
 
 show full columns from AB_USER;
 drop table AB_USER;

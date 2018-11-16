@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class OrderDetailBean implements Serializable {
+public class OrderDetailBean2 implements Serializable {
 	/**
 	 * 
 	 */
@@ -17,13 +17,10 @@ public class OrderDetailBean implements Serializable {
 	private String category;
 	private Integer qty;
 	private Integer price;
-	private Boolean isCommented;
-	public OrderDetailBean() {
+	public OrderDetailBean2() {
 
 	}
-	
-	public OrderDetailBean(String item, String poNo, String productId, String category, Integer qty, Integer price,
-			Boolean isCommented) {
+	public OrderDetailBean2(String item, String poNo, String productId, String category, Integer qty, Integer price) {
 		super();
 		this.item = item;
 		this.poNo = poNo;
@@ -31,9 +28,7 @@ public class OrderDetailBean implements Serializable {
 		this.category = category;
 		this.qty = qty;
 		this.price = price;
-		this.isCommented = isCommented;
 	}
-
 	public String getItem() {
 		return item;
 	}
@@ -69,14 +64,6 @@ public class OrderDetailBean implements Serializable {
 	}
 	public void setPrice(Integer price) {
 		this.price = price;
-	}
-
-	public Boolean getIsCommented() {
-		return isCommented;
-	}
-
-	public void setIsCommented(Boolean isCommented) {
-		this.isCommented = isCommented;
 	}
 	
 

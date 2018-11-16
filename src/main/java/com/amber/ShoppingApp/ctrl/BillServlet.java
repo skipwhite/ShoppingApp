@@ -34,9 +34,30 @@ public class BillServlet extends BaseHttpServlet {
 		
 		if (action != null && action.equals("sendOrder")) {
 			sendOrder(request, response);
-		} else {
-			showCart(request,response);
-		}
+			return;
+		} 
+			
+		if (action != null && action.equals("del")) {
+			delItem(request,response);
+			return;
+		} 
+		showCart(request,response);
+	}
+
+	private void delItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		String productId = request.getParameter("delItem");
+//		String view = "/bill";
+//		//刪除指定的productId
+//		Cookie cookie[]= request.getCookies();
+//    	for (int i = 0; i < cookie.length; i++) {
+//    		if (productId != null && productId.equals(cookie[i].getName())) {
+//    			cookie[i].setValue("");
+//    			cookie[i].setMaxAge(0);
+//    			response.addCookie(cookie[i]);
+//    		}
+//		}
+//		RequestDispatcher rd = request.getRequestDispatcher(view);
+//		rd.forward(request, response);
 	}
 
 	//查看目前購物車及總額

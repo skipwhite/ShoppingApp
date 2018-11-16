@@ -19,14 +19,27 @@
 		</div>
 		<div class="col-sm-10">
 		<c:forEach var="OD" items="${ODList}">
-		User: ${OD.ob.userId}
-		PO: ${OD.ob.poNo}
+		User: ${OD.ob.userId}<br>
+		PO: ${OD.ob.poNo}<br>
 			<c:forEach var="odb" items="${OD.odbl}">
 				item：${odb.item} <br>
 				訂單號碼：${odb.poNo} <br>
 				產品：${odb.productId} <br>
 				數量：${odb.qty} <br>
-				=====<br>
+				<c:choose>
+				    <c:when test="${odb.isCommented == false}">
+					<form method="post" action="<c:out value='${ctx}'/>/comment?productId=${odb.productId}">
+						尚未收到你的評價喔！
+						<input type="hidden" name="poNo" value="${odb.poNo}">
+						<input type="number" name="rate" value="5">
+						<input type="text" name="comment" placeholder="請輸入評價">
+						<button class="btn btn-default" type="submit">去評價</button>
+					</form>				        
+				    </c:when>    
+				    <c:otherwise>
+					已完成評價！<br>
+				    </c:otherwise>
+				</c:choose>				
 			</c:forEach>
 			------------------------------------------<br>
 		</c:forEach>

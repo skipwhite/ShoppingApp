@@ -57,7 +57,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=name %><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">我的帳戶</a></li>
+            <li><a href="<c:out value='${ctx}'/>/jsp/account/profile.jsp">我的帳戶</a></li>
             <%
             	if (role != null && role.equals("vendor")) {
             %>
@@ -86,7 +86,17 @@
              </a></li>
           <button>查看購物車</button>
 </div>
+<div class="full-banner container">
+    <div class="main-banner thumbnail">
+        <div style="background-image: url(&quot;https://assets.bonappetit.com/photos/58000512a9151a0762f43fdb/master/w_1200,c_limit/nuts-almonds-cashews-pistachios-pecans.jpg;); background-size: cover; background-repeat: no-repeat;"></div>
+        <img src="https://assets.bonappetit.com/photos/58000512a9151a0762f43fdb/master/w_1200,c_limit/nuts-almonds-cashews-pistachios-pecans.jpg">
+    </div>
+    <div class="right-banner thumbnail">
+    <img  thumbnail src="https://www.naturaloilsforhair.net/wp-content/uploads/2013/11/macadamia-nuts-oil-for-hair-growth-640x360.jpg">
+            <img  thumbnail src="https://www.naturaloilsforhair.net/wp-content/uploads/2013/11/macadamia-nuts-oil-for-hair-growth-640x360.jpg">
 
+    </div>
+</div>
 
 
 <a href="<c:out value='${ctx}'/>/addToCart?action=bill">結帳</a>  

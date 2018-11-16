@@ -31,7 +31,7 @@ import com.amber.ShoppingApp.service.UserService;
 import com.amber.ShoppingApp.util.ConnectionDB;
 import com.amber.ShoppingApp.util.SerialUtil;
 
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl2 implements OrderService {
 	private Integer totalPrice = 0;
 	
 	@Override
@@ -219,12 +219,12 @@ public class OrderServiceImpl implements OrderService {
 				}
 				maxItem = SerialUtil.increment(maxItem, "%d");
 				
-				//指定productId category qty price isCommented
+				//指定productId category qty price
 				String productId = entry.getKey().getProductId();
 				String category = entry.getKey().getCategory();
 				Integer qty = Integer.parseInt(entry.getValue());
 				Integer price = entry.getKey().getPrice();
-				OrderDetailBean odb = new OrderDetailBean(maxItem, poNo, productId, category, qty, price, false);
+				OrderDetailBean odb = new OrderDetailBean(maxItem, poNo, productId, category, qty, price);
 				OrderDetailService ods = new OrderDetailServiceImpl();
 				try {
 					ods.insert(odb);

@@ -23,4 +23,6 @@ public interface ProductCommentService {
 	int updateByPrimaryKey(ProductCommentBean record) throws SQLException, Exception;
 
 	int deleteByPrimaryKey(String userId) throws SQLException, Exception;
+
+	int createComment(ProductCommentBean record, String poNo) throws SQLException, Exception;
 }

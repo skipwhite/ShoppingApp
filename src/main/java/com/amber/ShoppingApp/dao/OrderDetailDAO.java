@@ -22,6 +22,8 @@ public interface OrderDetailDAO {
 	int updateByPrimaryKey(OrderDetailBean record) throws SQLException, Exception;
 
 	int deleteByPrimaryKey(String poNo, String productId) throws SQLException, Exception;
+
+	int updateIsComment(String poNo, String productId) throws SQLException, Exception;
 	
 
 }

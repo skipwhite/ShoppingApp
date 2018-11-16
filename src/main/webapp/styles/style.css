@@ -96,3 +96,17 @@ main img
 	box-shadow: 2px 2px 11px -1px rgba(125,123,125,0.47);
     
 }
+
+.full-banner.container{
+    display: flex;
+}
+
+.main-banner {
+    position: relative;
+    width: 100%;
+}
+.main-banner img {
+    width: 800px;
+}
+.right-banner img {
+    height: ;}

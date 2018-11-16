@@ -118,7 +118,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 		try {
 			conn = ConnectionDB.getConnection("amberDS");
 			
-			String INSERT = "insert into AB_ORDER_DTL values(?,?,?,?,? ,?)";
+			String INSERT = "insert into AB_ORDER_DTL values(?,?,?,?,? ,?,?)";
 			ps = conn.prepareStatement(INSERT);
 			if (record.getItem() != null) {
 				ps.setString(1, record.getItem());
@@ -131,6 +131,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 			ps.setString(4, record.getCategory());
 			ps.setInt(5, new Integer(record.getQty()));
 			ps.setInt(6, new Integer(record.getPrice()));
+			ps.setBoolean(7, new Boolean(record.getIsCommented()));
 			
 			count = ps.executeUpdate();
 			System.out.println("insert count : " + count);
@@ -156,7 +157,44 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public int updateIsComment(String poNo, String productId) throws SQLException, Exception {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int count = 0;
+		
+		try {
+			conn = ConnectionDB.getConnection("amberDS");
+			
+			String UPDATE = "update AB_ORDER_DTL set is_commented = true where po_no = ? AND product_id = ? ";
+			ps = conn.prepareStatement(UPDATE);
+			
+			if (poNo != null) {
+				ps.setString(1, poNo);
+			} else {
+				throw new Exception("must input poNo");
+			}
+			if (productId != null) {
+				ps.setString(2, productId);
+			} else {
+				throw new Exception("must input ProductId");
+			}
 
+			count = ps.executeUpdate();
+			System.out.println("update count : " + count);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			ConnectionDB.closeJDBCConnection(conn);
+			ConnectionDB.closePreparedStatement(ps);
+			ConnectionDB.closeResultSet(rs);
+		}
+		return count;
+	}
+	
 	@Override
 	public int updateByPrimaryKey(OrderDetailBean record) throws SQLException, Exception {
 		// TODO Auto-generated method stub
@@ -180,6 +218,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 			beam.setCategory(rs.getString("category"));
 			beam.setQty(rs.getInt("qty"));
 			beam.setPrice(rs.getInt("price"));
+			beam.setIsCommented(rs.getBoolean("is_commented"));
 			
 			System.out.println((++count) + ". " + beam.toString());
 

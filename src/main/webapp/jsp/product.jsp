@@ -128,9 +128,9 @@
 					<div>
 						<form method="get" action="<c:out value='${ctx}'/>/addToCart">
 							<div>
-								<div>
+								<div style="display:flex;">
 									數量: <span id="minus" class="glyphicon glyphicon-minus"></span>
-									<input id="num" type="number" name="qty" value="1"> <span
+									<input id="num" type="text" name="qty" value="1" style="width:33px; text-align:center;"> <span
 										id="plus" class="glyphicon glyphicon-plus"></span>
 								</div>
 						</form>

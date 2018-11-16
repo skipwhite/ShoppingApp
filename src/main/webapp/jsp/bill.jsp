@@ -103,20 +103,27 @@
         <div class="col-sm-1">
             <h4>數量</h4>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <h4>總價</h4>
-        </div>        
+        </div>  
+        <div class="col-sm-1">
+            <h4>操作</h4>
+        </div>       
     </div>
+    <form action="<c:out value='${ctx}'/>/bill" method="post">
 	<c:forEach var="i" items="${beanCart}">
 	    <div class="row">
 	        <div class="col-sm-7"><img>${i.key.name}</div>
 	        <div class="col-sm-1">${i.key.price}</div>
 	        <div class="col-sm-1">${i.value}</div>
-	        <div class="col-sm-3">
-	            $250單位總價
-	        </div>        
+	        <div class="col-sm-2">${i.key.price*i.value}</div>        
+	        <div class="col-sm-1">
+	        <input type="hidden" name=delItem value="${i.key.productId}">
+	    		${i.key.productId}<button type="submit" name="action" value="del">刪除</button>
+	    	</div>
 	    </div>
     </c:forEach>
+    </form>
     		    <h2>TOTAL: ${totalPrice}$</h2>
     <div class="row">
     配送方式

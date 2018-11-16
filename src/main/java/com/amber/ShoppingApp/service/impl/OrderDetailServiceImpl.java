@@ -58,6 +58,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return 0;
 	}
 
+	@Override
+	public int updateIsComment(String poNo, String productId) throws SQLException, Exception {
+		OrderDetailDAO dao = new OrderDetailDAOImpl();
+		return dao.updateIsComment(poNo, productId);
+	}
+
 
 
 }
