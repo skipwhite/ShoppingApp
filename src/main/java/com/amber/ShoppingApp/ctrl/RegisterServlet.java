@@ -22,7 +22,7 @@ public class RegisterServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final Pattern emailRegex = Pattern.compile(
 			"^[_a-z0-9]+([.][_a-z0-9]+)*@[_a-z0-9]+([.][_a-z0-9]+)*$");
-	private final Pattern passwordRegex = Pattern.compile(
+	private final static Pattern passwordRegex = Pattern.compile(
 			"^(?=.*[0-9])(?=.*[a-z]).{8,}$"); // need alpha and digit, 8 char at least
 	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,7 +79,7 @@ public class RegisterServlet extends BaseHttpServlet {
 		rd.forward(request, response);
 	}
 
-	private boolean validatePassword(String password) {
+	public static boolean validatePassword(String password) {
 		return password != null & passwordRegex.matcher(password).find();
 	}
 

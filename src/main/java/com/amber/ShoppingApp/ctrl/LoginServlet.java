@@ -68,4 +68,10 @@ public class LoginServlet extends BaseHttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
+	
+	public Boolean validatePassword() {
+		
+		return null;
+		
+	}
 }

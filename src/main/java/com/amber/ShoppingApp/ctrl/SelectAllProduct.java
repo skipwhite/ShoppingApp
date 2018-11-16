@@ -33,9 +33,9 @@ public class SelectAllProduct extends HttpServlet {
 	
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductService service = new ProductServiceImpl();
-		Map<ProductBean, String> map = new HashMap<>();
+		Map<ProductBean, String> maps = new HashMap<>();
 		try {
-			map = service.selectAllProductOneImg();
+			maps = service.selectAllProductOneImg();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class SelectAllProduct extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("map", map);
+		request.setAttribute("maps", maps);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		rd.forward(request, response);

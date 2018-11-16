@@ -1,17 +1,16 @@
 package com.amber.ShoppingApp.service.impl;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,6 +40,12 @@ public class OrderServiceImpl implements OrderService {
 		return dao.selectAll();
 	}
 
+	@Override
+	public List<OrderBean> selectByUser(String userId) throws SQLException, Exception {
+		OrderDAO dao = new OrderDAOImpl();
+		return dao.selectByUser(userId);
+	}
+	
 	@Override
 	public OrderBean selectByPrimaryKey(String poNo) throws SQLException, Exception {
 		OrderDAO dao = new OrderDAOImpl();
@@ -113,18 +118,13 @@ public class OrderServiceImpl implements OrderService {
 		UserBean ub = us.selectByPrimaryKey(userId);
 		
 		//取得SettingBean
-//		String shipId = (String) request.getAttribute("shipId");
-//		String payId = (String) request.getAttribute("payId");
-		
 		String shipId = request.getParameter("shipId");
+		System.out.println(shipId);
 		String payId = request.getParameter("payId");
 		
 		SettingDAO ss = new SettingDAOImpl();
 		SettingBean shipBean = ss.selectByPrimaryKey("ship_id", shipId);
 		SettingBean payBean = ss.selectByPrimaryKey("pay_id", payId);
-		System.out.println(shipBean.getValue());
-		System.out.println(payBean.getValue());
-		
 		
 		//產生OrderBean內容
 		String name = request.getParameter("name");
@@ -142,6 +142,13 @@ public class OrderServiceImpl implements OrderService {
 			e.printStackTrace();
 			throw new Exception("ob insert 失敗");
 		}
+		
+		// 更新User資訊
+		ub.setPhone(phone);
+		ub.setShipStore(shipStore);
+		ub.setZipCode(zipCode);
+		ub.setAddress(address);
+		us.updateByPrimaryKeySelective(ub);
 		
 		//取得完成後的訂單
 		ODBean OD;
@@ -221,21 +228,16 @@ public class OrderServiceImpl implements OrderService {
 				OrderDetailService ods = new OrderDetailServiceImpl();
 				try {
 					ods.insert(odb);
+					ProductService pService = new ProductServiceImpl();
+					pService.updateInvSalesByPK(productId, qty);
 					count++;
 				} catch (Exception e){
 					e.printStackTrace();
 					throw new Exception("odb insert 失敗 row " + count);
 				}
 				//計算totalPrice
-				System.out.println(entry.getKey() + "/" + entry.getValue());
-				System.out.println(price + "/" + qty + "before totalPrice" + totalPrice);
 				totalPrice += price * qty;
-				System.out.println("after totalPrice" + totalPrice);
 			}
-			
-			
-			
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -249,4 +251,34 @@ public class OrderServiceImpl implements OrderService {
 		
 		return poNo;
 	}
+	
+
+	
+	
+	@Override
+	public List<ODBean> myOrder(String userId) {
+		ODBean OD = new ODBean();
+		List<ODBean> ODList = new ArrayList<>();
+		OrderDetailService ods = new OrderDetailServiceImpl();
+		String poNo = "";
+		try {
+			//用userId撈出OrderBean
+			List<OrderBean> obList = selectByUser(userId);
+			for (OrderBean ob : obList) {
+				poNo = ob.getPoNo();
+				//用poNo撈OrderDetailBean
+				List<OrderDetailBean> odList = ods.selectAllItem(poNo);
+				//把OrderBean和OrderDetailBean塞進OD
+				OD.setOb(ob);
+				OD.setOdbl(odList);
+				ODList.add(OD);
+			}
+		} catch (Exception e){
+			System.out.println("myOrder出錯");
+			e.printStackTrace();
+		}
+		return ODList;
+	}
+
+
 }

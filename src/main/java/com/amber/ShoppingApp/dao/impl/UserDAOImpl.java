@@ -139,47 +139,55 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int updateByPrimaryKeySelective(UserBean record) throws SQLException, Exception {
-//		Connection conn = null;
-//		PreparedStatement ps = null;
-//		ResultSet rs = null;
-//		int count = 0;
-//		
-//		try {
-//			conn = ConnectionDB.getConnection("amberDS");
-//			
-//			String UPDATE = "update ab_user set name = ?, email = ?, password = ?, salt = ?" + "where user_id = ?";
-//			ps = conn.prepareStatement(UPDATE);
-//			if (record.getUserId() != null) {
-//				ps.setString(5, record.getUserId());
-//			} else {
-//				throw new Exception("must input userId");
-//			}
-//			if (record.getName() != null) {
-//				ps.setString(1, new String(record.getName()));
-//			}
-//			if (record.getEmail() != null) {
-//				ps.setString(2, new String(record.getEmail()));
-//			}
-//			if (record.getPassword() != null) {
-//				ps.setString(3, new String(record.getPassword()));
-//			}
-//			if (record.getSalt() != null) {
-//
-//				ps.setString(4, new String(record.getSalt()));
-//			}
-//
-//			count = ps.executeUpdate();
-//			System.out.println("update count : " + count);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			ConnectionDB.closeJDBCConnection(conn);
-//			ConnectionDB.closePreparedStatement(ps);
-//			ConnectionDB.closeResultSet(rs);
-//		}
-//		return count;
-		return 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int count = 0;
+		
+		try {
+			conn = ConnectionDB.getConnection("amberDS");
+			
+			String UPDATE = "update AB_USER set name = ?, email = ?, zip_code = ?, address = ?, phone = ?, ship_store = ?" + "where user_id = ?";
+			ps = conn.prepareStatement(UPDATE);
+			if (record.getUserId() != null) {
+				ps.setString(7, record.getUserId());
+			} else {
+				throw new Exception("must input userId");
+			}
+			ps.setString(1, new String(record.getName()));
+			ps.setString(2, new String(record.getEmail()));
+			if (record.getZipCode() != null) {
+				ps.setString(3, record.getZipCode());
+			} else {
+				ps.setString(3, null);
+			}
+			if (record.getAddress() != null) {
+				ps.setString(4, record.getAddress());
+			} else {
+				ps.setString(4, null);
+			}
+			if (record.getPhone() != null) {
+				ps.setString(5, record.getPhone());
+			} else {
+				ps.setString(5, null);
+			}
+			if (record.getShipStore() != null) {
+				ps.setString(6, record.getShipStore());
+			} else {
+				ps.setString(6, null);
+			}
+
+			count = ps.executeUpdate();
+			System.out.println("update count : " + count);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			ConnectionDB.closeJDBCConnection(conn);
+			ConnectionDB.closePreparedStatement(ps);
+			ConnectionDB.closeResultSet(rs);
+		}
+		return count;
 	}
 
 	@Override

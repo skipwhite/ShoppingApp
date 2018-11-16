@@ -1,4 +1,9 @@
-select * from AB_USER;
+﻿select * from AB_USER;
+select * from AB_PRODUCT;
+UPDATE AB_PRODUCT SET inventory = 43, sales_qty=1 where product_id='00001';
+UPDATE AB_PRODUCT SET inventory = 42, sales_qty = 2 where product_id='00001';
+
+
 select * from AB_ORDER;
 select * from AB_ORDER_DTL;
 TRUNCATE TABLE AB_ORDER;
@@ -19,6 +24,8 @@ CREATE TABLE AB_USER
 	ship_store		VARCHAR(20) comment '常用店家', -- 只做7-11的便利商店
 	role 		VARCHAR(10) comment '角色'
 ) comment = '使用者資料檔';
+
+
 
 CREATE TABLE AB_PRODUCT
 (

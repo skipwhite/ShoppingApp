@@ -41,6 +41,38 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 		return beans;
 	}
+	
+	@Override
+	public List<OrderBean> selectByUser(String userId) throws SQLException, Exception {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<OrderBean> beans = null;
+		
+		try {
+			conn = ConnectionDB.getConnection("amberDS");
+			
+			String SELECT_BY_USER = "select * from AB_ORDER where user_id = ?";
+			ps = conn.prepareStatement(SELECT_BY_USER);
+			if(userId != null) {
+				ps.setString(1, userId);
+			} else {
+				throw new Exception("selectByUser must input userId");
+			}
+			
+			rs = ps.executeQuery();
+			
+			beans = getBeans(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			ConnectionDB.closeJDBCConnection(conn);
+			ConnectionDB.closePreparedStatement(ps);
+			ConnectionDB.closeResultSet(rs);
+		}
+		return beans;
+	}
 
 	@Override
 	public OrderBean selectByPrimaryKey(String poNo) throws SQLException, Exception {

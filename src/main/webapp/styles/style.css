@@ -65,3 +65,34 @@ main img
 #blah {
   max-width:180px;
 }
+
+#minus{
+    padding: 10px;
+    background-color: orange;
+}
+
+#plus{
+    padding: 10px;
+    background-color: orange;
+}
+
+#cart{
+    padding: 15px;
+    background-color: orange;
+}
+
+#cartContent{
+    background-color: #f0ebe2;
+    border-color: #eea236; 
+    visibility: hidden;
+    position:absolute; 
+    top: 16%;
+    right: 11.5%; 
+    padding: 10px 30px;
+    z-index: 400;
+    shadow-coloe: #7d7b7d;
+    -webkit-box-shadow: 2px 2px 11px -1px rgba(125,123,125,0.47);
+	-moz-box-shadow: 2px 2px 11px -1px rgba(125,123,125,0.47);
+	box-shadow: 2px 2px 11px -1px rgba(125,123,125,0.47);
+    
+}

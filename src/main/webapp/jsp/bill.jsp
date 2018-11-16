@@ -6,6 +6,7 @@
 <%@ include file="/common/header.jsp"%>
 <title>結帳頁面</title>
 </head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <body> 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -42,8 +43,10 @@
         <button type="submit" class="btn btn-default">搜尋</button>
       </form>
       
+      
       <ul class="nav navbar-nav navbar-right">
-      	<li><a href="#" class="cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+
+      	<li><a href="#" class="cart"><span id="cart" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
         <%
             String name = (String) session.getAttribute("login");        
             String role = (String) session.getAttribute("role");
@@ -73,6 +76,17 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div id="cartContent">
+          <li><a href="#">
+           		購物車<br>
+				<c:forEach var="bean" items="${map}">
+					<ul>
+						<li>商品: ${bean.key.productId} - ${bean.value} 個</li>
+					</ul>
+				</c:forEach>
+             </a></li>
+          <button>查看購物車</button>
+</div>
  
 <div class="container">
     <div>
@@ -110,37 +124,45 @@
     
         <div>
           <input type="radio" checked="checked" name="shipId" value="0"> 宅配 
-                    <input type="hidden" name="shipId" value="0"> 宅配 
-                    <input type="hidden" name="payId" value="0"> 宅配 
         </div>
         <div>
-          <input type="radio" name="shipId" value="1"> 7-11取貨 yo
+          <input type="radio" name="shipId" value="1"> 7-11取貨
         </div>
         <div>
           <input type="radio" checked="checked" name="payId" value="0"> 信用卡 
         </div>
         <div class="address">
             <div class="form-group">
-		            <input autofocus class="form-control" name="name" placeholder="收件者" type="text">
+		            <input autofocus class="form-control" name="name" placeholder="收件者" type="text" value="${bean.name}" required>
 		    </div>
             <div class="form-group">
-		            <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text">
+		            <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text" value="${bean.phone}" required>
 		    </div>  
             <div class="form-group">
-		            <input autofocus class="form-control" name="shipStore" placeholder="運送店家" type="text">
+		            <input autofocus class="form-control" name="shipStore" placeholder="運送店家" value="${s_stName}" type="text">
 		    </div>  
             <div class="form-group">
-		            <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" type="text">
+		            <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" value="${bean.zipCode}" type="text">
 		    </div>          
             <div class="form-group">
-		            <input autofocus class="form-control" name="address" placeholder="地址" type="text">
+		            <input autofocus class="form-control" name="address" placeholder="地址" value="${bean.address}" type="text">
 		    </div>
          
         </div>
 <button type="submit" name="action" value="sendOrder" "btn btn-primary btn-default btn-lg" style="background-color: #f0ad4e; border-color: #eea236; position:absolute; right:27%; padding: 10px 70px;">結帳</button>
-<button type="submit" name="action" value="checkOrder" "btn btn-primary btn-default btn-lg" style="background-color: #f0ad4e; border-color: #eea236; position:absolute; right:50%; padding: 10px 70px;">查看訂單不結帳</button>
         
 </form>
+  <!--使用 FORM SUBMIT 轉頁到電子地圖-->
+  <form method="post" name="simulation_from" action="https://map.ezship.com.tw/ezship_map_web.jsp">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse">
+      <tr>
+       <td align="center">
+          <input name="Submit2" type="submit" value="選擇門市"></center>
+          <input type="hidden" name="rtURL"  value="http://localhost:8080/ShoppingApp/addToCart?action=bill"><!-- 回傳網址路徑及程式名稱。請輸入完整網站路徑網址。如  -->
+        </td>
+      </tr>
+    </table>
+  </form>
     </div>
 
 

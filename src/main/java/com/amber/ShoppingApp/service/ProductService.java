@@ -15,32 +15,17 @@ public interface ProductService {
 	
 	ProductBean selectByPrimaryKey(String productId) throws SQLException, Exception;
 	
-	/*
-	 * insert DateBeam
-	 */
 	int insert(ProductBean record) throws SQLException, Exception;
 
-	/*
-	 * insert DateBeam selective
-	 */
-//	int insertSelective(ProductBean record) throws SQLException, Exception;
-
 	int insertSelective(ProductBean record, List<ProductImgBean> pibs) throws SQLException, Exception;
-	/*
-	 * update DateBeam selective by PK
-	 */
+
+	int updateInvSalesByPK(String productId, Integer qty) throws SQLException, Exception;
+
 	int updateByPrimaryKeySelective(ProductBean record) throws SQLException, Exception;
 
-	/*
-	 * update DateBeam selective
-	 */
 	int updateByPrimaryKey(ProductBean record) throws SQLException, Exception;
 
-	/*
-	 * delete DateBeam by PK
-	 */
 	int deleteByPrimaryKey(String productId) throws SQLException, Exception;
-	
 	
 //	Map<ProductBean, String> checkCart(HttpServletRequest request) throws SQLException, Exception;
 	
@@ -50,7 +35,6 @@ public interface ProductService {
 
 	int createProduct(ProductBean pb, List<ProductImgBean> pibs) throws SQLException, Exception;
 	
-//	Map<ProductBean, List<String>> selectAllProduct() throws SQLException, Exception;
-	
 	Map<ProductBean, String> selectAllProductOneImg() throws SQLException, Exception;
+
 }

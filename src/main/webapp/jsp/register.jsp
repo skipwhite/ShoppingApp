@@ -42,8 +42,10 @@
         <button type="submit" class="btn btn-default">搜尋</button>
       </form>
       
+      
       <ul class="nav navbar-nav navbar-right">
-      	<li><a href="#" class="cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+
+      	<li><a href="#" class="cart"><span id="cart" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
         <%
             String name = (String) session.getAttribute("login");        
             String role = (String) session.getAttribute("role");
@@ -73,6 +75,17 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div id="cartContent">
+          <li><a href="#">
+           		購物車<br>
+				<c:forEach var="bean" items="${map}">
+					<ul>
+						<li>商品: ${bean.key.productId} - ${bean.value} 個</li>
+					</ul>
+				</c:forEach>
+             </a></li>
+          <button>查看購物車</button>
+</div>
 
 
 

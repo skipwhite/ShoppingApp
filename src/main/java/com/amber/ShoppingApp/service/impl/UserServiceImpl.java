@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int updateByPrimaryKeySelective(UserBean record) throws SQLException, Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		UserDAO dao = new UserDAOImpl();
+		return dao.updateByPrimaryKeySelective(record);
 	}
 
 	@Override

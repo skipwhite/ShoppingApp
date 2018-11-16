@@ -40,16 +40,16 @@ public class ProductServlet extends BaseHttpServlet {
 		request.setAttribute("pd", bean);
 		request.setAttribute("imgs", imgs);
 		
-    	try {
-			Map<ProductBean, String> map = service.checkCookie(request);
-			request.setAttribute("map", map);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//    	try {
+//			Map<ProductBean, String> map = service.checkCookie(request);
+//			request.setAttribute("map", map);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/jsp/product.jsp");
 		rd.forward(request, response);

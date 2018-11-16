@@ -22,6 +22,7 @@ import com.amber.ShoppingApp.service.ProductImgService;
 import com.amber.ShoppingApp.service.ProductService;
 import com.amber.ShoppingApp.util.ConnectionDB;
 import com.amber.ShoppingApp.util.SerialUtil;
+import com.mysql.fabric.Response;
 
 public class ProductServiceImpl implements ProductService {
 	@Override
@@ -135,6 +136,42 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
+	public int updateInvSalesByPK(String productId, Integer qty) throws SQLException, Exception {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int count = 0;
+		ProductBean bean = selectByPrimaryKey(productId);
+		Integer salesQty = bean.getSalesQty() + qty;
+		Integer inventory = bean.getInventory() - qty; 
+		if(productId == null || qty == null) {
+			throw new Exception("productID qty cannot be null");
+		}
+		
+		try {
+			conn = ConnectionDB.getConnection("amberDS");
+			
+			String UPDATE = "UPDATE AB_PRODUCT SET inventory = ?, sales_qty = ? where product_id='" + productId +  "'";
+
+			ps = conn.prepareStatement(UPDATE);
+			ps.setInt(1, inventory);
+			ps.setInt(2, salesQty);
+			
+			count = ps.executeUpdate();
+			System.out.println("update count : " + count);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			ConnectionDB.closeJDBCConnection(conn);
+			ConnectionDB.closePreparedStatement(ps);
+			ConnectionDB.closeResultSet(rs);
+		}
+		return count;
+	}
+	
+	@Override
 	public int updateByPrimaryKeySelective(ProductBean record) throws SQLException, Exception {
 		// TODO Auto-generated method stub
 		return 0;
@@ -197,6 +234,7 @@ public class ProductServiceImpl implements ProductService {
 //		}
 //		return beanCart;
 //	}
+	
 	
 	@Override
 	public Map<ProductBean, String> checkCookie(HttpServletRequest request) throws SQLException, Exception {

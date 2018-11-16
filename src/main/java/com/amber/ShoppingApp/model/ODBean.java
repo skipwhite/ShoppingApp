@@ -16,6 +16,9 @@ public class ODBean implements Serializable {
 		this.ob = ob;
 		this.odbl = odbl;
 	}
+	public ODBean() {
+		// TODO Auto-generated constructor stub
+	}
 	public OrderBean getOb() {
 		return ob;
 	}

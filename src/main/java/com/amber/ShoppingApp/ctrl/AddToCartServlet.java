@@ -23,7 +23,11 @@ public class AddToCartServlet extends BaseHttpServlet {
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if (action.equals("addToCart")) {
-			addToCart(request, response);
+			try {
+				addToCart(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if (action.equals("bill")) {
@@ -37,18 +41,18 @@ public class AddToCartServlet extends BaseHttpServlet {
 		
 	}
 
-	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws Exception { 
 		String productId = request.getParameter("productId");
 		String qty = request.getParameter("qty"); 
 		String view = "/product?productId=" + productId;
 		Cookie cookie[]= request.getCookies();
 		int count = 0;
-//	    if (cookie != null) {
-//	    	for( int i = 0; i < cookie.length; i++) {
-//	    		System.out.print(cookie[i].getName() + " : " + cookie[i].getValue() +"   ");
-//		      } 
-//	    	System.out.println();
-//	    } 
+	    if (cookie != null) {
+	    	for( int i = 0; i < cookie.length; i++) {
+	    		System.out.print(cookie[i].getName() + " : " + cookie[i].getValue() +"   ");
+		      } 
+	    	System.out.println();
+	    } 
 
 		if (!productId.isEmpty() && !qty.isEmpty()) {
 			//if product already exist in cart. update cookie
@@ -64,9 +68,23 @@ public class AddToCartServlet extends BaseHttpServlet {
 			if (count == 0) {
 				Cookie c1 = new Cookie(productId, qty);
 				response.addCookie(c1); 
-				System.out.print("add new cookie" + productId);
+				System.out.print("Just add new cookie" + productId);
+		    	for( int i = 0; i < cookie.length; i++) {
+		    		System.out.print(cookie[i].getName() + " : " + cookie[i].getValue() +"   ");
+			      } 
 			}
 		}
+		ProductService service = new ProductServiceImpl();
+		Map<ProductBean, String> map;
+		try {
+			map = service.checkCookie(request);
+			request.setAttribute("map", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("checkCart Error");
+		}
+
+		
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
         

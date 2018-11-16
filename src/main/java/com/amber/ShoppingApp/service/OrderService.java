@@ -16,6 +16,8 @@ public interface OrderService {
 	
 	List<OrderBean> selectAll() throws SQLException, Exception;
 	
+	List<OrderBean> selectByUser(String userId) throws SQLException, Exception;
+	
 	OrderBean selectByPrimaryKey(String poNo) throws SQLException, Exception;
 	
 	/*
@@ -46,4 +48,6 @@ public interface OrderService {
 	HttpServletRequest confirmOrder(HttpServletRequest request, HttpServletResponse response) throws Exception ;
 	
 	ODBean checkOrder(String poNo) throws SQLException, Exception;
+
+	List<ODBean> myOrder(String userId);
 }
