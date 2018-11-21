@@ -31,13 +31,17 @@
             <h4>操作</h4>
         </div>       
     </div>
-    <form action="<c:out value='${ctx}'/>/bill" method="post">
 	<c:forEach var="i" items="${beanCart}">
 	    <div class="row">
 	        <div class="col-sm-6"><img>${i.key.name}</div>
 	        <div class="col-sm-1">${i.key.price}</div>
 	        <div class="col-sm-2" style="display:flex;">
-				<input class="num" type="text" name="qty" value="${i.value}" style="width:33px; text-align:center;"> 
+	        	<div>
+		        	<input type="hidden" name="productId" id="productId" value="${pd.productId}">
+		        	<button id="minus${i.key.productId}" class="glyphicon glyphicon-minus"></button>
+					<input class="num${i.key.productId}" type="text" name="qty" value="${i.value}" style="width:33px; text-align:center;"> 
+					<span id="plus${i.key.productId}" class="glyphicon glyphicon-plus"></span>
+	        	</div>
 	        </div>
 	        <div class="col-sm-2">${i.key.price*i.value}</div>        
 	        <div class="col-sm-1">
@@ -45,36 +49,34 @@
 	    	</div>
 	    </div>
     </c:forEach>
-    </form>
     		    <h2>TOTAL: ${totalPrice}$</h2>
     <div class="row">
     配送方式
     <form method="post" action="<c:out value='${ctx}'/>/bill">
     
         <div>
-          <input type="radio" checked="checked" name="shipId" value="0"> 宅配 
+          <input id="ship00" type="radio" name="shipId" value="0" onchange="showPayment(this.value)"> 宅配 
+          <input id="ship01" type="radio" name="shipId" value="1" onchange="showPayment(this.value)"> 超商取貨
         </div>
-        <div>
-          <input type="radio" name="shipId" value="1"> 7-11取貨
-        </div>
-        <div>
-          <input type="radio" checked="checked" name="payId" value="0"> 信用卡 
+        <div class="pay">
+          <input class="ship00" type="radio" name="payId" value="0"> 信用卡 
+          <input type="radio" name="payId" value="1"> 超商取貨付款 
         </div>
         <div class="address">
             <div class="form-group">
-		            <input autofocus class="form-control" name="name" placeholder="收件者" type="text" value="${login.name}" required>
+		            <input autofocus class="form-control ship00" name="name" placeholder="收件者" type="text" value="${login.name}" required>
 		    </div>
             <div class="form-group">
-		            <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text" value="${login.phone}" required>
+		            <input autofocus class="form-control ship00" name="phone" placeholder="手機號碼" type="text" value="${login.phone}" required>
 		    </div>  
             <div class="form-group">
 		            <input autofocus class="form-control" name="shipStore" placeholder="運送店家" value="${s_stName}" type="text">
 		    </div>  
             <div class="form-group">
-		            <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" value="${login.zipCode}" type="text">
+		            <input autofocus class="form-control ship00" name="zipCode" placeholder="郵遞區號" value="${login.zipCode}" type="text">
 		    </div>          
             <div class="form-group">
-		            <input autofocus class="form-control" name="address" placeholder="地址" value="${login.address}" type="text">
+		            <input autofocus class="form-control ship00" name="address" placeholder="地址" value="${login.address}" type="text">
 		    </div>
          
         </div>

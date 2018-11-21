@@ -24,10 +24,17 @@
 				</div>
 				<div>
 					<div>
-						平均評分: 
-						<c:forEach begin="1" end="${avg}" varStatus="loop">
-							<span class="glyphicon glyphicon-star"></span>
-						</c:forEach>
+						<c:choose>
+						    <c:when test="${avg == 0}">
+								目前沒有評論！
+						    </c:when>    
+						    <c:otherwise>
+								平均評分: 
+								<c:forEach begin="1" end="${avg}" varStatus="loop">
+									<span class="glyphicon glyphicon-star"></span>
+								</c:forEach>
+						    </c:otherwise>
+						</c:choose>							
 						<span>庫存: ${pd.inventory} </span> 
 						<span>銷售量: ${pd.salesQty}</span>
 					</div>

@@ -10,12 +10,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<c:out value='${ctx}'/>">ShoppingApp</a>
+      <a class="navbar-brand" href="<c:out value='${ctx}'/>">
+      買堅果 <span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
+      </a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商品分類<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -24,7 +25,6 @@
             <li><a href="#">分類C</a></li>
           </ul>
         </li> 
-        <li><a href="#">Link</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search" action="<c:out value='${ctx}'/>/search" method="get">
         <div class="form-group" id="searchbox">
@@ -35,7 +35,7 @@
         <button class="btn btn-default">搜尋</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-      	<li><a><span id="cart" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+      	<li><a><i class="fas fa-shopping-cart"></i></a></li>
 	 	<c:choose>
 		    <c:when test="${login == null}">
 		        <li><a href="<c:out value='${ctx}'/>/jsp/login.jsp">登入</a></li>
@@ -58,17 +58,9 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div id="cartContent">
-          <li><a href="#">
-           		購物車<br>
-					<ul id="cartItem" style="display: none;">
-					</ul>
-				<c:forEach var="bean" items="${map}">
-					<ul>
-						<li>商品: ${bean.key.productId} - ${bean.value} 個</li>
-					</ul>
-				</c:forEach>
-             </a></li>
-             <form method="post" action="<c:out value='${ctx}'/>/bill">
-          	 	<button type="submit">查看購物車</button>
-          	 </form>
+	<ul id="cartItem" style="display: none;">
+	</ul>
+    <form method="post" action="<c:out value='${ctx}'/>/bill">
+  	 	<button type="submit" class="btn btn-sm btn-danger dropdown-toggle" aria-haspopup="true" aria-expanded="false">查看購物車</button>
+  	</form>
 </div>

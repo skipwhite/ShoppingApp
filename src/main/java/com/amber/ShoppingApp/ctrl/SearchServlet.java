@@ -17,7 +17,7 @@ import com.amber.ShoppingApp.service.impl.ProductServiceImpl;
 import com.google.gson.Gson;
 
 
-@WebServlet(value = "/a2", name = "ajax002")
+@WebServlet(value = "/search", name = "ajax002")
 public class SearchServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -27,7 +27,7 @@ public class SearchServlet extends BaseHttpServlet {
 
 	@Override
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		response.setHeader("content-type", "text/html;charset=UTF-8"); 
 		String keyword = request.getParameter("keyword");
 		System.out.println("keyword : " + keyword);
 		String jsonReturn = null;

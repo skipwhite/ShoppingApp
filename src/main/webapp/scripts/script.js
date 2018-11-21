@@ -1,5 +1,7 @@
-var cart = document.getElementById("cart");
+var carts = document.getElementsByClassName("fas fa-shopping-cart");
 var cartContent = document.getElementById("cartContent");
+
+updateCart();
 
 function getCookie(cname)
 {
@@ -12,7 +14,6 @@ function getCookie(cname)
   }
   return "";
 }
-updateCart();
 
 function updateCart(){
 	// Loop through all cookie and show on cart
@@ -22,18 +23,18 @@ function updateCart(){
 	for(var i = 0; i < cookies.length; i++) {
 	    var name = cookies[i].substring(0, cookies[i].indexOf('='));
 	    var value = cookies[i].substring(cookies[i].indexOf('=') + 1);
-	    list.push('<li>商品 ' + name + " - " + value + ' 個</li>');
+	    list.push('<div class="cartItem">商品 ' + name + " - " + value + ' 個</div>');
 	}
 	cartItem.innerHTML = list.join('');
 	cartItem.style.display = 'block';
 	// show name and qty
 }
 
-cart.addEventListener("mouseover",function(){
-cartContent.style.visibility = 'visible';
+carts[0].addEventListener("mouseover",function(){
+	cartContent.style.visibility = 'visible';
 })
-cart.addEventListener("mouseout",function(){
-cartContent.style.visibility = 'hidden';
+carts[0].addEventListener("mouseout",function(){
+	cartContent.style.visibility = 'hidden';
 })
 cartContent.addEventListener("mouseover",function(){
 cartContent.style.visibility = 'visible';
@@ -48,7 +49,7 @@ document.getElementById('keyword').oninput = function() {
 		// 1. 创建XMLHttpReqeust对象
 		var xhr = new XMLHttpRequest();
 		// 2. open操作初始化请求信息
-		xhr.open('GET', '/ShoppingApp/a2?keyword='
+		xhr.open('GET', '/ShoppingApp/search?keyword='
 				+ encodeURIComponent(keyword), true);
 		// 3. 监听事件处理响应结果
 		xhr.onreadystatechange = function() {
@@ -67,11 +68,7 @@ document.getElementById('keyword').oninput = function() {
 		if (ret.length) {
 			var lis = [];
 			for (var i = 0, len = ret.length; i < len; ++i) {
-				ret[i].name = decodeURI(ret[i].name);
-				
-				lis.push('<li>' + ret[i].name + '</li>');
-				console.log(ret[i].name);
-//				alert(ret[i].name);
+				lis.push('<li><a href="' + "/ShoppingApp/product?productId=" + ret[i].productId + '">' + ret[i].name + '</a></li>');
 			}
 			domHits.innerHTML = lis.join('');
 			domHits.style.display = 'block';
@@ -80,21 +77,6 @@ document.getElementById('keyword').oninput = function() {
 			domHits.style.display = 'none';
 		}
 	}
-//	function handleResult(ret) {
-//		ret = JSON.parse(ret);
-//		var domHits = document.getElementById('hits');
-//		if (ret.length) {
-//			var lis = [];
-//			for (var i = 0, len = ret.length; i < len; ++i) {
-//				lis.push('<li>' + ret[i] + '</li>');
-//			}
-//			domHits.innerHTML = lis.join('');
-//			domHits.style.display = 'block';
-//		} else {
-//			domHits.innerHTML = '';
-//			domHits.style.display = 'none';
-//		}
-//	}
 	// 单击提示结果放入输入框
 	document.getElementById('hits').onclick = function(event) {
 		document.getElementById('keyword').value = event.target.innerHTML;
