@@ -11,10 +11,10 @@
 	<div class="row">
 		<div class="col-sm-2">
 		<ul>
-		<li>使用者名稱</li>
-		<li>我的帳戶</li>
-		<li>我的訂單</li>
-		<li>更改密碼</li>
+			<li>使用者：${login.userId}</li>
+			<li><a href="<c:out value='${ctx}'/>/jsp/account/profile.jsp">我的帳戶</a></li>
+			<li><a href="<c:out value='${ctx}'/>/account?action=myOrder">我的訂單</a></li>
+			<li><a href="<c:out value='${ctx}'/>/jsp/account/password.jsp">更改密碼</a></li>
 		</ul>
 		</div>
 		<div class="col-sm-10">

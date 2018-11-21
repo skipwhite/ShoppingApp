@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.amber.ShoppingApp.model.UserBean;
 import com.amber.ShoppingApp.service.UserService;
 import com.amber.ShoppingApp.service.impl.UserServiceImpl;
 import com.amber.ShoppingApp.util.MD5Encrypt;
@@ -41,19 +41,22 @@ public class LoginServlet extends BaseHttpServlet {
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		List<String> errMessage = new ArrayList<String>();
-		String view = "index.jsp";
+		String view = "";
+		String oriUri = (String) request.getSession().getAttribute("oriUri");
 		
-		//TODO 改filter
 		try {
 				//MD5加密後再傳至service
-				if(service.login(userId, MD5Encrypt.md5(password))) {
+				UserBean bean = service.login(userId, MD5Encrypt.md5(password));
+				if(bean != null) {
 					if(request.getSession(false) != null) {
 						request.changeSessionId();
 					}
-					request.getSession().setAttribute("login", userId);
-					//		    	if(role.equals("vendor")) {
-					//		    		request.getSession().setAttribute("role", "vendor");
-					//		    	}
+					request.getSession().setAttribute("login", bean);
+					if(oriUri == null) {
+						view = "index.jsp";
+					} else {
+						view = oriUri;
+					}
 				} else {
 					errMessage.add("帳號或密碼錯誤");
 					view = "/jsp/login.jsp";
@@ -62,16 +65,8 @@ public class LoginServlet extends BaseHttpServlet {
 			e.printStackTrace();
 			view = "/jsp/login.jsp";
 		}
-		//TODO 改filter
 		
 		request.setAttribute("errMessage", errMessage);
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
-	}
-	
-	public Boolean validatePassword() {
-		
-		return null;
-		
+		response.sendRedirect(view);
 	}
 }

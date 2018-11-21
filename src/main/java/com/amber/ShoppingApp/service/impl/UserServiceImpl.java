@@ -61,8 +61,23 @@ public class UserServiceImpl implements UserService {
 		return insertSelective(record);
 	}
 
+//	@Override
+//	public boolean login(String userId, String password) throws SQLException, Exception {
+//		//傳進來已經加密的password
+//		UserBean bean = new UserBean();
+//		// Check if user exist, select by userId
+//		bean = selectByPrimaryKey(userId);
+//		if (bean != null) {
+//			// Check if password correct
+//			if (bean.getPassword().equals(password)) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+	
 	@Override
-	public boolean login(String userId, String password) throws SQLException, Exception {
+	public UserBean login(String userId, String password) throws SQLException, Exception {
 		//傳進來已經加密的password
 		UserBean bean = new UserBean();
 		// Check if user exist, select by userId
@@ -70,10 +85,10 @@ public class UserServiceImpl implements UserService {
 		if (bean != null) {
 			// Check if password correct
 			if (bean.getPassword().equals(password)) {
-				return true;
+				return bean;
 			}
 		}
-		return false;
+		return null;
 	}
 
 }

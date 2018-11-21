@@ -8,99 +8,20 @@
 </head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <body> 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="<c:out value='${ctx}'/>">ShoppingApp</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商品分類<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">分類A</a></li>
-            <li><a href="#">分類B</a></li>
-            <li><a href="#">分類C</a></li>
-          </ul>
-        </li> 
-        <li><a href="#">Link</a></li>
-        
-      </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" id="mainSearch" placeholder="搜尋商品">
-        </div>
-        <button type="submit" class="btn btn-default">搜尋</button>
-      </form>
-      
-      
-      <ul class="nav navbar-nav navbar-right">
-
-      	<li><a href="#" class="cart"><span id="cart" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-        <%
-            String name = (String) session.getAttribute("login");        
-            String role = (String) session.getAttribute("role");
-            if (name == null) {
-        %>
-        <li><a href="<c:out value='${ctx}'/>/jsp/login.jsp">登入</a></li>
-        <li><a href="<c:out value='${ctx}'/>/jsp/register.jsp">註冊帳號</a></li>
-        <% } else { %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=name %><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">我的帳戶</a></li>
-            <%
-            	if (role != null && role.equals("vendor")) {
-            %>
-            <li><a href="#">維護商品</a></li>
-            <% } %>
-            <li><a href="#">我的訂單</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<c:out value='${ctx}'/>/login?action=logout">登出</a></li>
-          </ul>
-        </li>         
-        <% }%>  
-
-      </ul>
-      
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<div id="cartContent">
-          <li><a href="#">
-           		購物車<br>
-				<c:forEach var="bean" items="${map}">
-					<ul>
-						<li>商品: ${bean.key.productId} - ${bean.value} 個</li>
-					</ul>
-				</c:forEach>
-             </a></li>
-          <button>查看購物車</button>
-</div>
- 
+<%@ include file="/common/navbar.jsp"%>
 <div class="container">
     <div>
         <h2>Shopping App | 結帳 ${message}</h2>
     </div>
 
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-6">
             <h3>訂單商品</h3>
         </div>
         <div class="col-sm-1">
             <h4>單價</h4>
         </div>
-        <div class="col-sm-1">
+        <div class="col-sm-2">
             <h4>數量</h4>
         </div>
         <div class="col-sm-2">
@@ -113,13 +34,14 @@
     <form action="<c:out value='${ctx}'/>/bill" method="post">
 	<c:forEach var="i" items="${beanCart}">
 	    <div class="row">
-	        <div class="col-sm-7"><img>${i.key.name}</div>
+	        <div class="col-sm-6"><img>${i.key.name}</div>
 	        <div class="col-sm-1">${i.key.price}</div>
-	        <div class="col-sm-1">${i.value}</div>
+	        <div class="col-sm-2" style="display:flex;">
+				<input class="num" type="text" name="qty" value="${i.value}" style="width:33px; text-align:center;"> 
+	        </div>
 	        <div class="col-sm-2">${i.key.price*i.value}</div>        
 	        <div class="col-sm-1">
-	        <input type="hidden" name=delItem value="${i.key.productId}">
-	    		${i.key.productId}<button type="submit" name="action" value="del">刪除</button>
+	    	<button id="delItem" type="submit" value="${i.key.productId}">刪除</button>
 	    	</div>
 	    </div>
     </c:forEach>
@@ -140,19 +62,19 @@
         </div>
         <div class="address">
             <div class="form-group">
-		            <input autofocus class="form-control" name="name" placeholder="收件者" type="text" value="${bean.name}" required>
+		            <input autofocus class="form-control" name="name" placeholder="收件者" type="text" value="${login.name}" required>
 		    </div>
             <div class="form-group">
-		            <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text" value="${bean.phone}" required>
+		            <input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text" value="${login.phone}" required>
 		    </div>  
             <div class="form-group">
 		            <input autofocus class="form-control" name="shipStore" placeholder="運送店家" value="${s_stName}" type="text">
 		    </div>  
             <div class="form-group">
-		            <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" value="${bean.zipCode}" type="text">
+		            <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" value="${login.zipCode}" type="text">
 		    </div>          
             <div class="form-group">
-		            <input autofocus class="form-control" name="address" placeholder="地址" value="${bean.address}" type="text">
+		            <input autofocus class="form-control" name="address" placeholder="地址" value="${login.address}" type="text">
 		    </div>
          
         </div>
@@ -176,7 +98,7 @@
 </div>
 
 
-
+<script type="text/javascript" src="<c:out value='${ctx}'/>/scripts/bill.js" charset="UTF-8"></script>
 <%@ include file="/common/footer.jsp"%>
 </body>
 </html>

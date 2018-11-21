@@ -2,8 +2,26 @@
 select * from AB_PRODUCT;
 UPDATE AB_PRODUCT SET inventory = 43, sales_qty=1 where product_id='00001';
 UPDATE AB_PRODUCT SET inventory = 42, sales_qty = 2 where product_id='00001';
+select * from AB_PRODUCT_COMMENT;
 
+INSERT INTO table_name ( comment_id, product_id, user_id, rate, comment )
+                       VALUES
+                       ( value1, value2,...valueN );
 
+CREATE TABLE AB_PRODUCT_COMMENT
+(
+	comment_id  CHAR(5) NOT NULL UNIQUE comment '商品評論代碼',
+	product_id  CHAR(5) NOT NULL comment '產品代碼',
+	user_id 	VARCHAR(20) NOT NULL comment '使用者代碼',
+	rate		NUMERIC(4,2) comment '星級',
+	comment  	VARCHAR(150) BINARY comment '評論內容',
+	timestamp	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '評論時間',
+	CONSTRAINT PRIMARY KEY (comment_id, product_id)
+) comment = '商品評論檔';
+
+update AB_ORDER_DTL set is_commented = true where po_no = '20181116000001' AND product_id = '00003' ;
+
+DELETE from AB_ORDER where user_id = 'amber' AND po_no = '';
 select * from AB_ORDER;
 select * from AB_ORDER_DTL;
 TRUNCATE TABLE AB_ORDER;

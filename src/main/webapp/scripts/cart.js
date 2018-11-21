@@ -1,3 +1,8 @@
+var productId = document.getElementById("productId");
+var addToCart = document.getElementById("addToCart");
+var num = document.getElementById("num");
+var minus = document.getElementById("minus");
+var plus = document.getElementById("plus");
 var cart = document.getElementById("cart");
 var cartContent = document.getElementById("cartContent");
 
@@ -13,6 +18,18 @@ function getCookie(cname)
   return "";
 }
 updateCart();
+
+addToCart.addEventListener("click",function(){
+	var oriQty = getCookie(productId.value);
+
+	if(oriQty != "") {
+		document.cookie = productId.value + "=" + (Number(num.value) + Number(oriQty));
+	} else {
+		document.cookie = productId.value + "=" + num.value;
+	}
+	updateCart();	
+	cartContent.style.visibility = 'visible';
+})
 
 function updateCart(){
 	// Loop through all cookie and show on cart
@@ -40,6 +57,16 @@ cartContent.style.visibility = 'visible';
 })
 cartContent.addEventListener("mouseout",function(){
 cartContent.style.visibility = 'hidden';
+})
+
+minus.addEventListener("click",function(){
+	if (num.value > 1){
+		num.value -= 1;
+	}
+})
+
+plus.addEventListener("click",function(){
+	num.value = parseInt(num.value) + 1;
 })
 
 document.getElementById('keyword').oninput = function() {
@@ -100,21 +127,5 @@ document.getElementById('keyword').oninput = function() {
 		document.getElementById('keyword').value = event.target.innerHTML;
 		this.style.display = 'none';
 	}
-
-
-	
-function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result);
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
 
 

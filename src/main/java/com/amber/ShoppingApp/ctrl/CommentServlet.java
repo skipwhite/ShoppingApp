@@ -35,13 +35,14 @@ public class CommentServlet extends BaseHttpServlet {
 		String rate = request.getParameter("rate");
 		String comment = request.getParameter("comment");
 		String poNo = request.getParameter("poNo");
-		String userId = (String) request.getSession().getAttribute("login");
+		UserBean ub = (UserBean) request.getSession().getAttribute("login");
+		
 		ProductCommentService service = new ProductCommentServiceImpl();
 		ProductCommentBean bean = new ProductCommentBean();
 		bean.setProductId(productId);
 		bean.setRate(new BigDecimal(rate));
 		bean.setComment(comment);
-		bean.setUserId(userId);
+		bean.setUserId(ub.getUserId());
 		
 		try {
 			service.createComment(bean, poNo);
@@ -53,11 +54,6 @@ public class CommentServlet extends BaseHttpServlet {
 			e.printStackTrace();
 		}
 		
-//		String action = request.getParameter("action");
-//		if (action != null && action.equals("save")) {
-//			save(request, response, bean);
-//		}
-
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	

@@ -18,7 +18,7 @@ import com.amber.ShoppingApp.service.ProductService;
 import com.amber.ShoppingApp.service.impl.ProductServiceImpl;
 
 //@WebFilter(filterName = "CheckCartFilter", urlPatterns = { "/product", "/bill" })
-@WebFilter(filterName = "CheckCartFilter", urlPatterns = { "/product", "/selectAllProduct" })
+//@WebFilter(filterName = "CheckCartFilter", urlPatterns = { "/product", "/selectAllProduct" })
 public class CheckCartFilter implements Filter {
 	@Override
 	public void init(FilterConfig fConfig) throws ServletException {

@@ -257,7 +257,6 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public List<ODBean> myOrder(String userId) {
-		ODBean OD = new ODBean();
 		List<ODBean> ODList = new ArrayList<>();
 		OrderDetailService ods = new OrderDetailServiceImpl();
 		String poNo = "";
@@ -265,6 +264,7 @@ public class OrderServiceImpl implements OrderService {
 			//用userId撈出OrderBean
 			List<OrderBean> obList = selectByUser(userId);
 			for (OrderBean ob : obList) {
+				ODBean OD = new ODBean();
 				poNo = ob.getPoNo();
 				//用poNo撈OrderDetailBean
 				List<OrderDetailBean> odList = ods.selectAllItem(poNo);

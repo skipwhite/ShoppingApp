@@ -38,5 +38,7 @@ public interface UserService {
 	
 	int createUser(UserBean record) throws SQLException, Exception;
 
-	boolean login(String userId, String password) throws SQLException, Exception;
+//	boolean login(String userId, String password) throws SQLException, Exception;
+
+	UserBean login(String userId, String password) throws SQLException, Exception;
 }

@@ -7,7 +7,7 @@
 <title>您已完成訂單</title>
 </head>
 <body> 
-
+<%@ include file="/common/navbar.jsp"%>
 <div class="container">
     <div>
         <h2>Shopping App | 您已完成訂購，訂單編號：${ob.poNo}</h2>

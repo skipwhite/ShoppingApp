@@ -1,11 +1,16 @@
 package com.amber.ShoppingApp;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.amber.ShoppingApp.model.ProductCommentBean;
+import com.amber.ShoppingApp.service.ProductCommentService;
+import com.amber.ShoppingApp.service.impl.ProductCommentServiceImpl;
 import com.amber.ShoppingApp.util.SerialUtil;
 
 public class TestSE {
@@ -94,9 +99,24 @@ public class TestSE {
 //		
 //		System.out.println(dateString + SerialUtil.increment("0", "%06d"));
 //		System.out.println(SerialUtil.increment("0", "%d"));
-		String a = "20181114000001";
-		System.out.println(a.substring(8));
-		
+//		String a = "20181114000001";
+//		System.out.println(a.substring(8));
+			BigDecimal count = new BigDecimal(0);
+			BigDecimal total = new BigDecimal(0);
+			BigDecimal avg = new BigDecimal(0);
+			BigDecimal x = new BigDecimal(4.00);
+			BigDecimal y = new BigDecimal(3.00);
+			total = x.add(total);
+			total = y.add(total);
+					
+			count = count.add(new BigDecimal(1));
+			System.out.println(count);
+//			avg = total.divide(count);
+//			System.out.println(avg);
+//			System.out.println(avg.intValue());
+			
+				
+			
 		
 	}
 }

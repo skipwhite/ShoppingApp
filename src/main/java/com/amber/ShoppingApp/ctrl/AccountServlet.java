@@ -26,66 +26,41 @@ import com.amber.ShoppingApp.util.MD5Encrypt;
 public class AccountServlet extends BaseHttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private UserService service = new UserServiceImpl();
-	
 	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String view = "/jsp/account/profile.jsp";
-		//取得userBean
-		String userId = (String) request.getSession().getAttribute("login");
-		
-		UserBean bean = new UserBean();
-		try {
-			bean = service.selectByPrimaryKey(userId);
-			request.setAttribute("bean", bean);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		UserBean bean = (UserBean) request.getSession().getAttribute("login");
+
 		String action = request.getParameter("action");
 		if (action != null && action.equals("save")) {
-			save(request, response, bean);
+			save(request, response);
 		}
 		
 		if (action != null && action.equals("changePsw")) {
-			changePsw(request, response, userId);
+			changePsw(request, response, bean);
 			return;
 		}
 		
 		if (action != null && action.equals("myOrder")) {
-			System.out.println("AccountServlet後面是ID" + userId);
-			myOrder(request, response, userId);
+			myOrder(request, response, bean);
 			return;
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 
-	private void myOrder(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
+	private void myOrder(HttpServletRequest request, HttpServletResponse response, UserBean bean) throws ServletException, IOException {
 		String view = "/jsp/account/myOrder.jsp";
 		OrderService service = new OrderServiceImpl();
-		List<ODBean> ODList = service.myOrder(userId);
+		List<ODBean> ODList = service.myOrder(bean.getUserId());
 		
 		request.setAttribute("ODList", ODList);
-		System.out.println("我是OD"+ODList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 	}
 
-	private void changePsw(HttpServletRequest request, HttpServletResponse response, String userId) throws ServletException, IOException {
-		UserBean bean = new UserBean();
-		try {
-			bean = service.selectByPrimaryKey(userId);
-			request.setAttribute("bean", bean);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private void changePsw(HttpServletRequest request, HttpServletResponse response, UserBean bean) throws ServletException, IOException {
 		String passwordOld = request.getParameter("passwordOld");
 		String view = "/jsp/account/password.jsp";
 		String errMessage = "";
@@ -106,8 +81,10 @@ public class AccountServlet extends BaseHttpServlet {
 		rd.forward(request, response);
 	}
 
-	private void save(HttpServletRequest request, HttpServletResponse response, UserBean bean) throws UnsupportedEncodingException {
+	private void save(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
+		UserService service = new UserServiceImpl();
+		UserBean bean = new UserBean();
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String zipCode = request.getParameter("zipCode");
@@ -123,7 +100,7 @@ public class AccountServlet extends BaseHttpServlet {
 				
 		try {
 			service.updateByPrimaryKeySelective(bean);
-			request.setAttribute("bean", bean);
+			request.setAttribute("login", bean);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
