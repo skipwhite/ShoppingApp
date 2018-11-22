@@ -4,11 +4,11 @@
         auth="Container" 
         type="javax.sql.DataSource" 
         username="amber" 
-        password="amber1234"  
+        password="amber1234" 
         maxIdle="30" 
         maxWait="10000" 
         maxActive="100" 
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://202.182.103.76:3306/AMBER_DEV"
+        url="jdbc:mysql://45.76.221.240:3306/AMBER_DEV"
         logAbandoned="true" />
 </Context>

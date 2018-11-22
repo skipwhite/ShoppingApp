@@ -113,9 +113,10 @@ public class OrderServiceImpl implements OrderService {
 		
 		// PROCESS ORDER BEAN
 		//取得userbean
-		String userId = (String) request.getSession().getAttribute("login");
+//		String userId = (String) request.getSession().getAttribute("login");
 		UserService us = new UserServiceImpl();
-		UserBean ub = us.selectByPrimaryKey(userId);
+//		UserBean ub = us.selectByPrimaryKey(userId);
+ 		UserBean ub = (UserBean) request.getSession().getAttribute("login");
 		
 		//取得SettingBean
 		String shipId = request.getParameter("shipId");
@@ -133,7 +134,7 @@ public class OrderServiceImpl implements OrderService {
 		String zipCode = request.getParameter("zipCode");
 		String address = request.getParameter("address");
 		
-		OrderBean ob = new OrderBean(poNo, userId, name, phone, shipId, shipBean.getValue(),
+		OrderBean ob = new OrderBean(poNo, ub.getUserId(), name, phone, shipId, shipBean.getValue(),
 				shipStore, payId, payBean.getValue(), zipCode, address, totalPrice, "收到訂單", false, false);
 		
 		try {

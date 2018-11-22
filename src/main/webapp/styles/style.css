@@ -148,6 +148,7 @@ ul#cartItem {
 
 .btn-danger {
     background-color: #f75823;
+    float: right;
 }
 
 #cartContent{
@@ -165,6 +166,10 @@ ul#cartItem {
 	-moz-box-shadow: 2px 2px 11px -1px rgba(125,123,125,0.47);
 	box-shadow: 2px 2px 11px -1px rgba(125,123,125,0.47);
 	border-radius: 6px;
+}
+
+img.mainImg {
+    max-height: 600px;
 }
 
 .full-banner.container{

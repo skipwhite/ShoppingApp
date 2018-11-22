@@ -1,12 +1,10 @@
 ﻿select * from AB_USER;
+TRUNCATE TABLE AB_USER;
 select * from AB_PRODUCT;
+select * from AB_PRODUCT_IMG;
 UPDATE AB_PRODUCT SET inventory = 43, sales_qty=1 where product_id='00001';
 UPDATE AB_PRODUCT SET inventory = 42, sales_qty = 2 where product_id='00001';
 select * from AB_PRODUCT_COMMENT;
-
-INSERT INTO table_name ( comment_id, product_id, user_id, rate, comment )
-                       VALUES
-                       ( value1, value2,...valueN );
 
 CREATE TABLE AB_PRODUCT_COMMENT
 (

@@ -19,15 +19,24 @@ function updateCart(){
 	// Loop through all cookie and show on cart
 	var cartItem = document.getElementById('cartItem');
 	var cookies = document.cookie.split(';');
-	var list = [];
 	for(var i = 0; i < cookies.length; i++) {
-	    var name = cookies[i].substring(0, cookies[i].indexOf('='));
+	    var productId = cookies[i].substring(0, cookies[i].indexOf('='));
 	    var value = cookies[i].substring(cookies[i].indexOf('=') + 1);
-	    list.push('<div class="cartItem">商品 ' + name + " - " + value + ' 個</div>');
+	    //用productId去Servlet抓商品資訊
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', '/ShoppingApp/cart?productId='
+	    		+ encodeURIComponent(productId), true);
+	    xhr.onreadystatechange = function() {
+	    	if (xhr.readyState == 4 && xhr.status == 200) {
+	    		var ret = JSON.parse(xhr.responseText);
+	    		var list = [];
+	    		list.push('<div class="cartItem">' + ret.name + " - " + value + ' 個</div>');
+	    		cartItem.innerHTML = list.join('');
+	    		cartItem.style.display = 'block';
+	    	}
+	    };
+	    xhr.send();
 	}
-	cartItem.innerHTML = list.join('');
-	cartItem.style.display = 'block';
-	// show name and qty
 }
 
 carts[0].addEventListener("mouseover",function(){

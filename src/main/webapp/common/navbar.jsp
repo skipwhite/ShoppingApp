@@ -39,7 +39,7 @@
 	 	<c:choose>
 		    <c:when test="${login == null}">
 		        <li><a href="<c:out value='${ctx}'/>/jsp/login.jsp">登入</a></li>
-		        <li><a href="<c:out value='${ctx}'/>/jsp/register.jsp">註冊帳號</a></li>
+		        <li><a href="<c:out value='${ctx}'/>/jsp/register.jsp">註冊</a></li>
 		    </c:when>    
 		    <c:otherwise>
 		        <li class="dropdown">

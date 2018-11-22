@@ -23,6 +23,7 @@
 
 
 <a href="<c:out value='${ctx}'/>/bill">結帳bill</a>  
+<a href="<c:out value='${ctx}'/>/jsp/mainPhotoTest.jsp">mainPhotoTest</a>  
 <a href="<c:out value='${ctx}'/>/jsp/ajax.jsp">ajax</a>  
 	<a href="<c:out value='${ctx}'/>/jsp/test.jsp">Test</a>
 	<a href="<c:out value='${ctx}'/>/jsp/upload.jsp">Upload</a>

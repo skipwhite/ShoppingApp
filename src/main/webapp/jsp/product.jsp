@@ -11,11 +11,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
-				<c:forEach var="img" items="${imgs}">
-					<div class="thumbnail">
-						<img src="data:image/jpg;base64,${img}" alt="No image">
-					</div>
-				</c:forEach>
+				<div class="thumbnail">
+				<figure><img class="mainImg" src="data:image/jpg;base64,${imgs[0]}"></figure>
+				</div>
 			</div>
 			<div class="col-sm-6">
 				<div>
@@ -67,7 +65,7 @@
 		<c:forEach var="img" items="${imgs}">
 			<div class="col-lg-1">
 				<div class="thumbnail">
-					<img src="data:image/jpg;base64,${img}" alt="No image">
+					<a class="smallImg" href="data:image/jpg;base64,${img}"><img src="data:image/jpg;base64,${img}" alt="No image"></a>
 				</div>
 			</div>
 		</c:forEach>

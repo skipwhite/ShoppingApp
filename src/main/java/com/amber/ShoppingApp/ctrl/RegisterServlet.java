@@ -68,7 +68,11 @@ public class RegisterServlet extends BaseHttpServlet {
 			if (count != 1) {
 				throw new Exception("error count : " + count + " when inserting!");
 			} 
-			request.getSession().setAttribute("login", userId);
+			UserBean bean = service.login(userId, MD5Encrypt.md5(password));
+			if(bean != null) {
+				request.getSession().setAttribute("login", bean);
+			} 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			view = "/jsp/register.jsp";
