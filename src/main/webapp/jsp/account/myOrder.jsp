@@ -7,6 +7,7 @@
 <title>我的帳戶</title>
 </head>
 <body> 
+<%@ include file="/common/navbar.jsp"%>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-2">
@@ -18,6 +19,10 @@
 		</ul>
 		</div>
 		<div class="col-sm-10">
+	    <div>
+	        <h2>我的訂單</h2>
+	    </div>
+	    <hr>		
 		<c:forEach var="OD" items="${ODList}">
 		==訂單號碼: ${OD.ob.poNo}==<br>
 		==訂單細項==<br>
@@ -29,7 +34,7 @@
 						尚未收到你的評價喔！
 						<input type="hidden" name="poNo" value="${odb.poNo}">
 						<input type="number" name="rate" value="5">
-						<input type="text" name="comment" placeholder="請輸入評價">
+						<textarea name="comment" rows="3" cols="50" placeholder="請輸入評價"></textarea>
 						<button class="btn btn-default" type="submit">去評價</button>
 					</form>				        
 				    </c:when>    

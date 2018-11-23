@@ -29,10 +29,10 @@ function updateCart(){
 	    xhr.onreadystatechange = function() {
 	    	if (xhr.readyState == 4 && xhr.status == 200) {
 	    		var ret = JSON.parse(xhr.responseText);
-	    		var list = [];
-	    		list.push('<div class="cartItem">' + ret.name + " - " + value + ' 個</div>');
-	    		cartItem.innerHTML = list.join('');
-	    		cartItem.style.display = 'block';
+    			var list = [];
+    			list.push('<div class="cartItem">' + ret.name + " - " + value + ' 個</div>');
+    			cartItem.innerHTML = list.join('');
+    			cartItem.style.display = 'block';
 	    	}
 	    };
 	    xhr.send();

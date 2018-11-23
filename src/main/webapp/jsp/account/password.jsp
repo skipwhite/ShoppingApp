@@ -7,6 +7,7 @@
 <title>我的帳戶</title>
 </head>
 <body> 
+<%@ include file="/common/navbar.jsp"%>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-2">
@@ -18,16 +19,23 @@
 		</ul>
 		</div>
 		<div class="col-sm-10">
+	    <div>
+	        <h2>更改密碼</h2>
+	    </div>
+	    <hr>			
 <main class="container p-5">
 <form action="<c:out value='${ctx}'/>/account" method="post">
         <div class="form-group">
-            <input autofocus class="form-control" name="passwordOld" placeholder="舊密碼" type="password" required pattern=".{8,20}" title="至少8-20個字元包含英文數字">
+        	<span class="text">舊密碼</span>
+            <input autofocus class="form-control" name="passwordOld"  type="password" required pattern=".{8,20}" title="至少8-20個字元包含英文數字">
         </div>
         <div class="form-group">
-            <input autofocus class="form-control" name="passwordNew" placeholder="新密碼" type="password" required pattern=".{8,20}" title="至少8-20個字元包含英文數字">
+        	<span class="text">新密碼</span>
+            <input autofocus class="form-control" name="passwordNew"  type="password" required pattern=".{8,20}" title="至少8-20個字元包含英文數字">
         </div>
         <div class="form-group">
-            <input autofocus class="form-control" name="passwordNew2" placeholder="密碼確認" type="password" required pattern=".{8,20}" title="至少8-20個字元包含英文數字">
+        	<span class="text">密碼確認</span>	
+            <input autofocus class="form-control" name="passwordNew2"  type="password" required pattern=".{8,20}" title="至少8-20個字元包含英文數字">
         </div>
 		${errMessage}
 	    <button class="btn btn-primary btn-lg" type="submit" name ="action" value="changePsw">更改密碼</button>

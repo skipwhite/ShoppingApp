@@ -23,6 +23,7 @@ DELETE from AB_ORDER where user_id = 'amber' AND po_no = '';
 select * from AB_ORDER;
 select * from AB_ORDER_DTL;
 TRUNCATE TABLE AB_ORDER;
+TRUNCATE TABLE AB_ORDER_DTL;
 show full columns from AB_ORDER_DTL;
 ALTER TABLE AB_ORDER_DTL
 ADD COLUMN is_commented		BIT NOT NULL DEFAULT 0 comment '已評論';

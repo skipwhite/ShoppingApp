@@ -32,14 +32,16 @@
 <div class="container">
 	<div class="row">
 		<c:forEach var="i" items="${maps}">
-			<div class="col-lg-4 col-sm-6">
+			<div class="col-lg-3 col-sm-6">
 				<div class="thumbnail">
-					<a href="<c:out value='${ctx}'/>/product?productId=${i.key.productId}" class="pic">
-						<img src="data:image/jpg;base64,${i.value}" alt="No image">
-					</a>
+					<a href="<c:out value='${ctx}'/>/product?productId=${i.key.productId}" class="pic">		
+						<div class="indexSmImg" style="background-image: url(data:image/jpg;base64,${i.value});">
+						</div>
+					</a>	
 					${i.key.name}<br>
 					<strong>${i.key.price}$</strong>
 				</div>
+
 			</div>
 		</c:forEach>
 

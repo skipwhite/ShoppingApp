@@ -1,6 +1,57 @@
 body {
 	font-family: 'Noto Sans TC', sans-serif;
 	font-weight: 500;
+	background: #fafafa;
+}
+
+.container{
+	background: white;
+}
+
+.price {
+    padding: 20;
+    background: #fafafa;
+    font-weight: 600;
+    color: #ff5722;
+}
+
+i.fas.fa-cart-plus {
+    font-size: 1.5em;
+    padding-right: 2px;
+}
+
+.text {
+    width: 110px;
+    color: #757575;
+}
+
+input#addToCart {
+    min-width: 18rem;
+    height: 48px;
+}
+
+button.btn.btn-primary.btn-default {
+    min-width: 18rem;
+    height: 48px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #b78733;
+    border-color: #a4612e;
+}
+
+.btn-primary:hover {
+    color: white;
+    background-color: #d74a2a;
+    border-color: #ffc954;
+}
+
+.btn-primary:active,.btn-primary:focus,.btn-primary:active:focus, .btn-primary:active:hover
+{
+    color: white;
+    background-color: #d74a2a;
+    border-color: #ffc954;
 }
 
 .navbar {
@@ -168,8 +219,17 @@ ul#cartItem {
 	border-radius: 6px;
 }
 
+.thumbnail {
+    border: none;
+}
+
+figure{
+	height:480px;
+}
+
 img.mainImg {
-    max-height: 600px;
+    max-height: 480px;
+    max-width: 445px;
 }
 
 .full-banner.container{
@@ -192,4 +252,12 @@ img.mainImg {
 
 .address{
 	visibility: hidden;
+}
+
+.indexSmImg {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 262px;
+    height: 300px;
+    background-position: 50% 50%;
 }

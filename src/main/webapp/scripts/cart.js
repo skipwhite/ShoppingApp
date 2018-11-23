@@ -11,6 +11,15 @@ $(function(){
 	});
 });
 
+$(function(){
+	$(".imgSm").mouseover(function(){
+		$(this).css("border", "2px solid #d3bc2b");
+	});
+	$(".imgSm").mouseout(function(){
+		$(this).css("border", "2px solid white");
+	});
+});
+
 
 function getCookie(cname)
 {
@@ -35,6 +44,7 @@ addToCart.addEventListener("click",function(){
 	}
 	updateCart();	
 	cartContent.style.visibility = 'visible';
+	setTimeout(function(){cartContent.style.visibility = 'hidden';},3000);
 })
 
 function updateCart(){
