@@ -1,7 +1,7 @@
 var carts = document.getElementsByClassName("fas fa-shopping-cart");
 var cartContent = document.getElementById("cartContent");
 
-updateCart();
+showCart();
 
 function getCookie(cname)
 {
@@ -15,28 +15,35 @@ function getCookie(cname)
   return "";
 }
 
-function updateCart(){
+function showCart(){
 	// Loop through all cookie and show on cart
 	var cartItem = document.getElementById('cartItem');
 	var cookies = document.cookie.split(';');
+	var list = [];
+	var products =[];
+	var values =[];
 	for(var i = 0; i < cookies.length; i++) {
-	    var productId = cookies[i].substring(0, cookies[i].indexOf('='));
+	    var productId = cookies[i].substring(0, cookies[i].indexOf('=')).trim();
 	    var value = cookies[i].substring(cookies[i].indexOf('=') + 1);
-	    //用productId去Servlet抓商品資訊
-	    var xhr = new XMLHttpRequest();
-	    xhr.open('GET', '/ShoppingApp/cart?productId='
-	    		+ encodeURIComponent(productId), true);
-	    xhr.onreadystatechange = function() {
-	    	if (xhr.readyState == 4 && xhr.status == 200) {
-	    		var ret = JSON.parse(xhr.responseText);
-    			var list = [];
-    			list.push('<div class="cartItem">' + ret.name + " - " + value + ' 個</div>');
-    			cartItem.innerHTML = list.join('');
-    			cartItem.style.display = 'block';
-	    	}
-	    };
-	    xhr.send();
+	    products.push(productId);
+	    values.push(value);
 	}
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', '/ShoppingApp/showCart?productId='
+			+ products.join(), true);
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var ret = JSON.parse(xhr.responseText);
+			for(var i = 0; i < ret.length; i++){
+				list.push('<div class="cartItem">' + ret[i].name + " - " + values[i] + ' 個</div>');
+				cartItem.innerHTML = list.join('');
+				cartItem.style.display = 'block';
+			}
+		}
+	};
+	xhr.send();
 }
 
 carts[0].addEventListener("mouseover",function(){

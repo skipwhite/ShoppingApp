@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/common/header.jsp"%>
-<title>商品頁面</title>
+<title>${pd.name} | 買堅果</title>
 </head>
 <body>
 <%@ include file="/common/navbar.jsp"%>
@@ -63,7 +63,7 @@
 							</div>
 							<div class="buttonDiv">
 								<a href="/ShoppingApp/bill">
-									<button class="btn btn-primary btn-default" type="submit" name="action" value="bill">直接購買</button>
+									<button id="bill" class="btn btn-primary btn-default" type="submit" name="action" value="bill">直接購買</button>
 								</a>
 							</div>
 						</div>

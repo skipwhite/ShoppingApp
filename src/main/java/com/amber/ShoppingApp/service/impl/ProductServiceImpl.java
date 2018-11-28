@@ -36,6 +36,20 @@ public class ProductServiceImpl implements ProductService {
 		ProductDAO dao = new ProductDAOImpl();
 		return dao.selectByPrimaryKey(productId);
 	}
+	
+	@Override
+	public List<ProductBean> multipleSelectByPrimaryKey(List<String> productIds) throws SQLException, Exception {
+		ProductDAO dao = new ProductDAOImpl();
+		List<ProductBean> beans = new ArrayList<>();
+		for (String productId : productIds) {
+			ProductBean bean = dao.selectByPrimaryKey(productId);
+			if(bean != null) {
+				beans.add(bean);
+			}
+		}
+		return beans;
+	}
+	
 
 	@Override
 	public int insert(ProductBean record) throws SQLException, Exception {

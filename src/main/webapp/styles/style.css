@@ -245,14 +245,6 @@ img.mainImg {
 }
 .right-banner img {
     height: ;}
-    
-.pay{
-	visibility: hidden;
-}
-
-.address{
-	visibility: hidden;
-}
 
 .indexSmImg {
     background-size: contain;
@@ -260,4 +252,78 @@ img.mainImg {
     width: 262px;
     height: 300px;
     background-position: 50% 50%;
+}
+
+.title h3.curr {
+	font-size: 1.5em;
+    cursor: default;
+    background-color: #90c31f;
+}
+
+.title h3 {
+    display: inline;
+    padding: 5px 15px 3px 15px;
+    
+    -webkit-border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 0px 0px;
+    border-top: 1px solid #90c31f;
+    border-left: 1px solid #90c31f;
+    background-color: #fff;
+    cursor: pointer;
+    min-width: 110px;
+    text-align: center;
+    position: relative;
+}
+
+.title {
+    width: 98%;
+    border-bottom: 2px solid #90c31f;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    padding-top: 20px;
+    padding-bottom: 6px;
+}
+
+.billList {
+	list-style: none;
+}
+
+.inputName {
+    width: 20%;
+    text-align: right;
+    color: rgba(85,85,85,.8);
+    text-transform: capitalize;
+    overflow: hidden;
+}
+
+.inputContent  {
+    width: 80%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 2rem;
+}
+.inputWrapper  {
+	display: flex;
+	align-items: center;
+	margin:  15 0;
+	width: 70%;
+}
+
+.container.bill {
+    width: 70%;
+    margin-bottom: 50px;
+}
+
+button#storeCheck {
+    position: absolute;
+    top: 91.7%;
+    right: 36%;
+}
+
+button#billSubmit {
+    position: relative;
+    right: -69%;
+    min-width: 24rem;
 }

@@ -46,7 +46,9 @@ public class BillServlet extends BaseHttpServlet {
 		String view = "/jsp/bill.jsp";
 		Integer totalPrice = 0;
 		String s_stName = request.getParameter("stName")==null?"":request.getParameter("stName");
-		s_stName = new String(s_stName.getBytes("ISO8859_1"),"UTF-8");
+//		System.out.println(s_stName);
+//		s_stName = new String(s_stName.getBytes("ISO8859_1"),"UTF-8");
+//		System.out.println(s_stName);
 		request.setAttribute("stname", s_stName);
     	try {
 			Map<ProductBean, String> map = service.checkCookie(request);

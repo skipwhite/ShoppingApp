@@ -59,7 +59,7 @@ public class LoginServlet extends BaseHttpServlet {
 					}
 				} else {
 					errMessage.add("帳號或密碼錯誤");
-					view = "/jsp/login.jsp";
+					view = "ShoppingApp/jsp/login.jsp";
 				}
 		} catch (Exception e) {
 			e.printStackTrace();

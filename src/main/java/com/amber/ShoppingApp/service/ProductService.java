@@ -37,4 +37,6 @@ public interface ProductService {
 	
 	Map<ProductBean, String> selectAllProductOneImg() throws SQLException, Exception;
 
+	List<ProductBean> multipleSelectByPrimaryKey(List<String> productIds) throws SQLException, Exception;
+
 }

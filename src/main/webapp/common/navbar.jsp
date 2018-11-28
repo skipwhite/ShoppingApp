@@ -32,10 +32,10 @@
           <ul id="hits" style="display: none;">
           </ul>
         </div>
-        <button class="btn btn-default">搜尋</button>
+        <button class="btn btn-default" name="action" value="search">搜尋</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-      	<li><a><i class="fas fa-shopping-cart"></i></a></li>
+      	<li><a><div id="cartIcon"><i class="fas fa-shopping-cart"></i></div></a></li>
 	 	<c:choose>
 		    <c:when test="${login == null}">
 		        <li><a href="<c:out value='${ctx}'/>/jsp/login.jsp">登入</a></li>
