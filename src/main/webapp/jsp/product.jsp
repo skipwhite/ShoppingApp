@@ -1,6 +1,7 @@
 <%@ include file="/common/include.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <%@ include file="/common/header.jsp"%>
@@ -85,28 +86,50 @@
 		</c:forEach>
 	</div>
 	<div>
-		<h3>${pd.dscr}</h3>
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h3 class="panel-title">商品詳情</h3>
 	</div>
+	<div class="panel-body"><h4>${pd.dscr}</h4></div>
+</div>
+</div>
+</div>
+<div id="space">
+</div>
+<div class="container">
+<h3>商品評價</h3>
+<hr>
 	<div>
-		<h3>產品評論</h3>
 		<c:choose>
 		    <c:when test="${comments == null}">
 				目前沒有評論！
 		    </c:when>    
 		    <c:otherwise>
 				<c:forEach var="comment" items="${comments}">
-					<ul>
-					<li>Comment Id: ${comment.commentId}</li>
-					<li>Product Id: ${comment.productId}</li>
-					<li>評分: ${comment.rate}</li>
-					<li>評論: ${comment.comment}</li>
-					<li>時間: <fmt:formatDate value="${comment.timestamp}" pattern="yyyy-MM-dd HH:mm" /></li>
-					</ul>
+					<div class="well well-lg">
+						<div>${comment.userId}</div>
+						<div>
+     						<fmt:parseNumber var="i" integerOnly = "true" type = "number"  value = "${comment.rate}" />
+							<c:forEach begin="1" end="${i}" varStatus="loop">
+								<span class="glyphicon glyphicon-star"></span>
+							</c:forEach>
+						</div>
+						<div>${comment.comment}</div>
+						<div>
+							<fmt:formatDate value="${comment.timestamp}" pattern="yyyy-MM-dd HH:mm" />
+						</div>
+					</div>
+					<hr>
 				</c:forEach>
 		    </c:otherwise>
 		</c:choose>	
 	</div>
-	</div>
+</div>
+
+		
+
+
+
 <script type="text/javascript" src="<c:out value='${ctx}'/>/scripts/cart.js" charset="UTF-8"></script>
 	<%@ include file="/common/footer.jsp"%>
 </body>

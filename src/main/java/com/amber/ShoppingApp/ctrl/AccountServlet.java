@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.amber.ShoppingApp.model.ODBean;
+import com.amber.ShoppingApp.model.ODPBean;
 import com.amber.ShoppingApp.model.UserBean;
 import com.amber.ShoppingApp.service.OrderService;
 import com.amber.ShoppingApp.service.UserService;
@@ -53,8 +54,10 @@ public class AccountServlet extends BaseHttpServlet {
 		String view = "/jsp/account/myOrder.jsp";
 		OrderService service = new OrderServiceImpl();
 		List<ODBean> ODList = service.myOrder(bean.getUserId());
+//		List<ODPBean> ODPList = service.myOrder(bean.getUserId());
 		
 		request.setAttribute("ODList", ODList);
+//		request.setAttribute("ODPList", ODPList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);

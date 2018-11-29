@@ -7,10 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.amber.ShoppingApp.model.ODBean;
+import com.amber.ShoppingApp.model.ODPBean;
 import com.amber.ShoppingApp.model.OrderBean;
-import com.amber.ShoppingApp.model.OrderDetailBean;
-import com.amber.ShoppingApp.model.TestBean;
-import com.amber.ShoppingApp.model.UserBean;
 
 public interface OrderService {
 	
@@ -50,4 +48,6 @@ public interface OrderService {
 	ODBean checkOrder(String poNo) throws SQLException, Exception;
 
 	List<ODBean> myOrder(String userId);
+	
+//	List<ODPBean> myOrder(String userId);
 }

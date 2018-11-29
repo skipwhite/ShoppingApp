@@ -19,6 +19,7 @@ import com.amber.ShoppingApp.dao.SettingDAO;
 import com.amber.ShoppingApp.dao.impl.OrderDAOImpl;
 import com.amber.ShoppingApp.dao.impl.SettingDAOImpl;
 import com.amber.ShoppingApp.model.ODBean;
+import com.amber.ShoppingApp.model.ODPBean;
 import com.amber.ShoppingApp.model.OrderBean;
 import com.amber.ShoppingApp.model.OrderDetailBean;
 import com.amber.ShoppingApp.model.ProductBean;
@@ -281,5 +282,38 @@ public class OrderServiceImpl implements OrderService {
 		return ODList;
 	}
 
+//	@Override
+//	public List<ODPBean> myOrder(String userId) {
+//		List<ODPBean> ODPList = new ArrayList<>();
+//		List<ProductBean> pbl = new ArrayList<>();
+//		
+//		OrderDetailService ods = new OrderDetailServiceImpl();
+//		ProductService ps = new ProductServiceImpl();
+//		String poNo = "";
+//		try {
+//			//用userId撈出OrderBean
+//			List<OrderBean> obList = selectByUser(userId);
+//			for (OrderBean ob : obList) {
+//				ODPBean ODP = new ODPBean();
+//				poNo = ob.getPoNo();
+//				//用poNo撈OrderDetailBean
+//				List<OrderDetailBean> odList = ods.selectAllItem(poNo);
+//				//loop OrderDetailBean, 撈出對應的ProductBean
+//				for (OrderDetailBean odb : odList) {
+//					ProductBean pb = ps.selectByPrimaryKey(odb.getProductId());
+//					pbl.add(pb);
+//				}
+//				//把OrderBean和OrderDetailBean塞進OD
+//				ODP.setOb(ob);
+//				ODP.setOdbl(odList);
+//				ODP.setPb(pbl);
+//				ODPList.add(ODP);
+//			}
+//		} catch (Exception e){
+//			System.out.println("myOrder出錯");
+//			e.printStackTrace();
+//		}
+//		return ODPList;
+//	}
 
 }

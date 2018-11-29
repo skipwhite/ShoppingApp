@@ -327,3 +327,80 @@ button#billSubmit {
     right: -69%;
     min-width: 24rem;
 }
+
+table, th, td {
+   border: 1px solid black;
+}
+
+.col-sm-2.left {
+    background: #fafafa;
+    height: -webkit-fill-available;
+}
+
+.userBrief {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid #efefef;
+    align-items: center;
+    font-size: 1.3em;
+}
+
+i#userIcon {
+    font-size: 2em;
+    padding: 5;
+    color: #d25050;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: inherit;
+    border: none;
+}
+
+.miniIcon {
+    font-size: 1.5em;
+    padding: 3 5;
+    color: #bb9ca7;
+}
+
+.inputContentProfile  {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 2rem;
+}
+
+.inputNameProfile {
+    width: 33%;
+    text-align: right;
+    color: rgba(85,85,85,.8);
+    text-transform: capitalize;
+    overflow: hidden;
+}
+
+input.form-control.profile {
+    width: 181%;
+}
+    
+
+button#profileButton {
+    position: absolute;
+    right: 33%;
+}
+
+h3.profileTitle {
+    padding: 0 10;
+}
+
+button#passwordButton {
+    position: absolute;
+    right: 33%;
+}
+
+div#space {
+    width: 100%;
+    background: #fafafa;
+    padding: 3 100%;
+}

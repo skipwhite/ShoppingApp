@@ -9,49 +9,64 @@
 <body> 
 <%@ include file="/common/navbar.jsp"%>
 <div class="container">
-	<div class="row">
-		<div class="col-sm-2">
-		<ul>
-			<li>使用者：${login.userId}</li>
-			<li><a href="<c:out value='${ctx}'/>/jsp/account/profile.jsp">我的帳戶</a></li>
-			<li><a href="<c:out value='${ctx}'/>/account?action=myOrder">我的訂單</a></li>
-			<li><a href="<c:out value='${ctx}'/>/jsp/account/password.jsp">更改密碼</a></li>
-		</ul>
+	<div class="row" style="height: 67%;">
+		<div class="col-sm-2 left">
+			<div class="userBrief">
+				<i class="fas fa-user-circle" id="userIcon"></i> 哈囉 ${login.userId}
+			</div>
+			<div class="list-group">
+			  <a href="<c:out value='${ctx}'/>/jsp/account/profile.jsp" class="list-group-item">
+			  <i class="far fa-id-card miniIcon"></i><span>我的帳戶</span></a>
+			  <a href="<c:out value='${ctx}'/>/account?action=myOrder" class="list-group-item">
+			  <i class="fas fa-shopping-basket miniIcon"></i>我的訂單</a>
+			  <a href="<c:out value='${ctx}'/>/jsp/account/password.jsp" class="list-group-item">
+			  <i class="fas fa-key miniIcon"></i>更改密碼</a>
+			</div>
 		</div>
 		<div class="col-sm-10">
 		    <div>
-		        <h2>我的帳戶</h2>
+		        <h3 class="profileTitle">我的帳戶</h3>
 		    </div>
 		    <hr>		
-			<main class="container p-5">
 			<form action="<c:out value='${ctx}'/>/account" method="post">
-			        <div class="form-group">
-			            <span class="text">姓名</span>
-			            <input autofocus class="form-control" name="name" placeholder="姓名" type="text" value="${login.name}" required>
-			        </div>
-			        <div class="form-group">
-			        	<span class="text">Email</span>
-			            <input autofocus class="form-control" name="email" placeholder="Email" type="text" value="${login.email}" required>
-				    </div>
-					<div class="form-group">
-						<span class="text">手機號碼</span> 
-						<input autofocus class="form-control" name="phone" placeholder="手機號碼" type="text" value="${login.phone}">
-				    </div>  
-			        <div class="form-group">
-			        	<span class="text">常用店家</span>
-			        	<input autofocus class="form-control" name="shipStore" placeholder="運送店家" type="text" value="${login.shipStore}">
-				    </div>  
-			        <div class="form-group">
-			        	<span class="text">郵遞區號</span>
-				        <input autofocus class="form-control" name="zipCode" placeholder="郵遞區號" type="text" value="${login.zipCode}">
-				    </div>          
-			        <div class="form-group">
-			        	<span class="text">地址</span>
-				        <input autofocus class="form-control" name="address" placeholder="地址" type="text" value="${login.address}">
-				    </div>
-				    <button class="btn btn-primary btn-lg" type="submit" name ="action" value="save">儲存</button>
+	        <div class="inputWrapper">
+		        <div class="inputNameProfile">姓名</div>
+		        <div class="inputContentProfile">
+		            <input autofocus class="form-control profile" name="name" placeholder="姓名" type="text" value="${login.name}" required>
+		        </div>
+	        </div>			
+	        <div class="inputWrapper">
+		        <div class="inputNameProfile">Email</div>
+		        <div class="inputContentProfile">
+		            <input autofocus class="form-control profile" name="email" placeholder="Email" type="text" value="${login.email}" required>
+		        </div>
+	        </div>			
+	        <div class="inputWrapper">
+		        <div class="inputNameProfile">手機號碼</div>
+		        <div class="inputContentProfile">
+		            <input autofocus class="form-control profile" name="phone" placeholder="手機號碼" type="text" value="${login.phone}">
+		        </div>
+	        </div>			
+	        <div class="inputWrapper">
+		        <div class="inputNameProfile">常用店家</div>
+		        <div class="inputContentProfile">
+		            <input autofocus class="form-control profile" name="shipStore" placeholder="運送店家" type="text" value="${login.shipStore}">
+		        </div>
+	        </div>			
+	        <div class="inputWrapper">
+		        <div class="inputNameProfile">郵遞區號</div>
+		        <div class="inputContentProfile">
+		            <input autofocus class="form-control profile" name="zipCode" placeholder="郵遞區號" type="text" value="${login.zipCode}">
+		        </div>
+	        </div>			
+	        <div class="inputWrapper">
+		        <div class="inputNameProfile">地址</div>
+		        <div class="inputContentProfile">
+		            <input autofocus class="form-control profile" name="address" placeholder="地址" type="text" value="${login.address}">
+		        </div>
+	        </div>			
+				    <button id="profileButton"class="btn btn-primary btn-lg" type="submit" name ="action" value="save">儲存</button>
 				</form>
-			</main>	
 		</div>
 	</div>
 </div>

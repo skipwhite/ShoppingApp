@@ -23,10 +23,10 @@
 	        <h2>我的訂單</h2>
 	    </div>
 	    <hr>		
-		<c:forEach var="OD" items="${ODList}">
+		<c:forEach var="ODP" items="${ODPList}">
 		<div>
 			<div>
-				<h3>訂單號碼: ${OD.ob.poNo}</h3>
+				<h3>訂單號碼: ${ODP.ob.poNo}</h3>
 			</div>
 			<div>
 			<table>
@@ -36,10 +36,18 @@
 					<th>數量</th>
 					<th>已評價</th>
 				</tr>
-				<c:forEach var="odb" items="${OD.odbl}">
+				<c:forEach var="odb" items="${ODP.odbl}">
 					<tr>
 						<td>${odb.item}</td>
-						<td>${odb.productId}</td>
+						<td>
+						<c:forEach var="pbb" items="${ODP.pb}">
+							<c:choose>
+								<c:when test="${odb.productId == pbb.productId}">
+									${pbb.name}
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						</td>
 						<td>${odb.qty}</td>
 						<td>
 				<c:choose>
@@ -59,6 +67,7 @@
 						</td>
 					</tr>
 				</c:forEach>
+				
 			</table>
 			
 			</div>
