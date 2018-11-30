@@ -10,18 +10,45 @@
 <%@ include file="/common/navbar.jsp"%>
 <div class="container">
     <div>
-        <h2>Shopping App | 您已完成訂購，訂單編號：${ob.poNo}</h2>
+        <h2 style="color: chocolate;">Shopping App | 購物車</h2>
     </div>
-		poNo：${ob.poNo} <br>
-		userId：${ob.userId} <br>
-		total：${ob.totalPrice} <br>
-		<c:forEach var="i" items="${odList}">
-			item：${i.item} <br>
-			訂單號碼：${i.poNo} <br>
-			產品：${i.productId} <br>
-			數量：${i.qty} <br>
-			------------------------------------------<br>
-		</c:forEach>
+    <div class="alert alert-success" role="alert">
+    	<h3>您已完成訂購</h3>
+        <button class="btn btn-primary">瀏覽其他訂單</button>
+    </div>
+    
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">訂單編號：${ob.poNo}</h3>
+		</div>
+		<div class="panel-body" id="myOrderPanel">
+			<div class="row" style="color:#888;">
+				<div class="col-sm-2">	
+						項次
+				</div>
+				<div class="col-sm-7">	
+				產品名稱		
+				</div>
+				<div class="col-sm-3">	
+				數量		
+				</div>
+			</div>
+			<hr id="orderHr" style="margin: 10 0;">
+			<c:forEach var="i" items="${odList}">
+				<div class="row">
+					<div class="col-sm-2">	
+						${i.item}
+					</div>
+					<div class="col-sm-7">	
+						${i.productId}	
+					</div>
+					<div class="col-sm-3">	
+						${i.qty}	
+					</div>
+				</div>
+			</c:forEach>  
+		</div>
+	</div>  
 </div>
 
 <%@ include file="/common/footer.jsp"%>

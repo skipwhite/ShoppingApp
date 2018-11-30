@@ -22,10 +22,10 @@
 					<input type="hidden" name="productName" id="productName" value="${pd.name}">
 				</div>
 				<div>
-					<div>
+					<div style="    margin: 20 0;    color: #767676;">
 						<c:choose>
-						    <c:when test="${avg == 0}">
-								目前沒有評論！
+						    <c:when test="${avg == null}">
+								目前沒有評論 | 
 						    </c:when>    
 						    <c:otherwise>
 								平均評分: 
@@ -34,7 +34,7 @@
 								</c:forEach>
 						    </c:otherwise>
 						</c:choose>							
-						<span>庫存: ${pd.inventory} </span> 
+						<span>庫存: ${pd.inventory} |</span> 
 						<span>銷售量: ${pd.salesQty}</span>
 					</div>
 					<div>
@@ -44,7 +44,7 @@
 					</div>
 					<div>
 						<div>
-							<div style="display:flex;margin: 20;height: 30;line-height: 30px;">
+						<div style="display:flex;margin: 26px 20;height: 30;line-height: 30px;">
 								<div class="text">
 								數量: 
 								</div>
@@ -55,7 +55,8 @@
 									<input type="hidden" name="productId" id="productId" value="${pd.productId}">
 								</div>
 							</div>
-						<div style="display:flex;">
+							
+							<div style="display:flex;margin: 34px 20px;">
 							<div class="buttonDiv">
 								<button id="addToCart" class="btn btn-primary btn-default" style="margin-right: 30;">
 									<i class="fas fa-cart-plus"></i>加入購物車
@@ -70,7 +71,6 @@
 						</div>
 					</div>
 				</div>
-				現在的商品ID是: ${pd.productId}
 			</div>
 		</div>
 	</div>
@@ -96,8 +96,11 @@
 </div>
 <div id="space">
 </div>
-<div class="container">
-<h3>商品評價</h3>
+<div class="container" style="
+    min-height: 125px;
+    margin-bottom: 40px;
+">
+<h4>商品評價</h4>
 <hr>
 	<div>
 		<c:choose>
@@ -107,15 +110,15 @@
 		    <c:otherwise>
 				<c:forEach var="comment" items="${comments}">
 					<div class="well well-lg">
-						<div>${comment.userId}</div>
-						<div>
+						<div id="productUserId">${comment.userId}</div>
+						<div id="commentRate">
      						<fmt:parseNumber var="i" integerOnly = "true" type = "number"  value = "${comment.rate}" />
 							<c:forEach begin="1" end="${i}" varStatus="loop">
 								<span class="glyphicon glyphicon-star"></span>
 							</c:forEach>
 						</div>
-						<div>${comment.comment}</div>
-						<div>
+						<div id="commentComment">${comment.comment}</div>
+						<div id="commentTimestamp">
 							<fmt:formatDate value="${comment.timestamp}" pattern="yyyy-MM-dd HH:mm" />
 						</div>
 					</div>

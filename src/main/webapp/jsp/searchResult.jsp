@@ -10,18 +10,20 @@
 <body> 
 <%@ include file="/common/navbar.jsp"%>	
 <div class="container">
-	<h3>搜尋結果 關鍵字:${query}</h3>
-	<div class="row">
+	<h3><i class="fas fa-search"style="
+    color: crimson;margin: 10;
+"></i>'${query}' 的搜尋結果</h3>
+<hr>
 		<c:forEach var="i" items="${maps}">
-			<div class="col-lg-3 col-sm-6">
-				<div class="thumbnail">
+			<div class="col-lg-3 col-sm-6 smProduct zoom">
 					<a href="<c:out value='${ctx}'/>/product?productId=${i.key.productId}" class="pic">		
 						<div class="indexSmImg" style="background-image: url(data:image/jpg;base64,${i.value});">
 						</div>
 					</a>	
-					${i.key.name}<br>
-					<strong>${i.key.price}$</strong>
-				</div>
+			      <div class="caption">
+			        <h5 style="min-height: 30px;">${i.key.name}</h5>
+			        <strong style="color:#ff5722;">$${i.key.price}</strong>
+			      </div>					
 
 			</div>
 		</c:forEach>

@@ -1,10 +1,35 @@
+var storeInput = document.getElementById("storeInput");
 var delItem = document.getElementById("delItem");
 var totalPrice = document.getElementById("totalPrice");
 var nums = document.getElementsByClassName("num");
-var ship00 = document.getElementsByClassName("ship00");
-var ship01 = document.getElementById("ship01");
 var unitPrice = document.getElementById("unitPrice");
 var unitTotal = document.getElementById("unitTotal");
+var add = document.getElementsByClassName("add");
+var ship = document.getElementsByClassName("ship");
+
+for (i = 0; i < ship.length; i++){
+	if (ship[i].checked == true){
+		var shipId = ship[i].value;
+		hideColumn(shipId);
+	} 	
+}
+
+function hideColumn(shipId){
+	if (shipId == 0){
+		document.getElementById("storeInput").disabled = true;
+		document.getElementById("storeButton").disabled = true;
+		for (i = 0; i < add.length; i++){
+			add[i].disabled = false;
+		}
+	}
+	else{
+		document.getElementById("storeInput").disabled = false;
+		document.getElementById("storeButton").disabled = false;
+		for (i = 0; i < add.length; i++){
+			add[i].disabled = true;
+		}
+	}
+}
 
 
 document.getElementById("cartIcon").style.visibility = 'hidden';

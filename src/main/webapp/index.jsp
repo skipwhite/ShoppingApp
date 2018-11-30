@@ -11,42 +11,43 @@
 <%@ include file="/common/navbar.jsp"%>
 <div class="full-banner container">
     <div class="main-banner thumbnail">
-        <div style="background-image: url(&quot;https://assets.bonappetit.com/photos/58000512a9151a0762f43fdb/master/w_1200,c_limit/nuts-almonds-cashews-pistachios-pecans.jpg;); background-size: cover; background-repeat: no-repeat;"></div>
-        <img src="https://assets.bonappetit.com/photos/58000512a9151a0762f43fdb/master/w_1200,c_limit/nuts-almonds-cashews-pistachios-pecans.jpg">
+<div id="wrapper">
+  <div id="slide">
+    <ul>
+      <li><img src="photo/main1.jpg" width="800" height="500" alt="img1"></li>
+      <li><img src="photo/main2.jpg" width="800" height="500" alt="img2"></li>
+    </ul>
+  	<a id="prevBtn" class="prev" >&#10094;</a>
+<a id="nextBtn" class="next" >&#10095;</a>
+  </div>
+</div>
     </div>
     <div class="right-banner thumbnail">
-    <img  thumbnail src="https://www.naturaloilsforhair.net/wp-content/uploads/2013/11/macadamia-nuts-oil-for-hair-growth-640x360.jpg">
-            <img  thumbnail src="https://www.naturaloilsforhair.net/wp-content/uploads/2013/11/macadamia-nuts-oil-for-hair-growth-640x360.jpg">
-
+    <img class="smBanner" src="photo/sm1.png">
+    <img class="smBanner" src="photo/sm2.png">
     </div>
 </div>
 
-
-<a href="<c:out value='${ctx}'/>/bill">結帳bill</a>  
-<a href="<c:out value='${ctx}'/>/jsp/mainPhotoTest.jsp">mainPhotoTest</a>  
-<a href="<c:out value='${ctx}'/>/jsp/ajax.jsp">ajax</a>  
-	<a href="<c:out value='${ctx}'/>/jsp/test.jsp">Test</a>
-	<a href="<c:out value='${ctx}'/>/jsp/upload.jsp">Upload</a>
-	<a href="<c:out value='${ctx}'/>/jsp/newProduct.jsp">New Product</a>
-	
 <div class="container">
 	<div class="row">
 		<c:forEach var="i" items="${maps}">
-			<div class="col-lg-3 col-sm-6">
-				<div class="thumbnail">
+			<div class="col-lg-3 col-sm-6 smProduct zoom">
 					<a href="<c:out value='${ctx}'/>/product?productId=${i.key.productId}" class="pic">		
 						<div class="indexSmImg" style="background-image: url(data:image/jpg;base64,${i.value});">
 						</div>
 					</a>	
-					${i.key.name}<br>
-					<strong>${i.key.price}$</strong>
-				</div>
+			      <div class="caption">
+			        <h5 style="min-height: 30px;">${i.key.name}</h5>
+			        <strong style="color:#ff5722;">$${i.key.price}</strong>
+			      </div>					
 
 			</div>
 		</c:forEach>
 
 	</div>
 </div>
+	<a href="<c:out value='${ctx}'/>/jsp/newProduct.jsp">New Product</a>
+<script type="text/javascript" src="<c:out value='${ctx}'/>/scripts/index.js" charset="UTF-8"></script>
 <%@ include file="/common/footer.jsp"%>
 </body>
 </html>

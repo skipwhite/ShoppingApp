@@ -147,7 +147,7 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			conn = ConnectionDB.getConnection("amberDS");
 			
-			String UPDATE = "update AB_USER set name = ?, email = ?, zip_code = ?, address = ?, phone = ?, ship_store = ?" + "where user_id = ?";
+			String UPDATE = "update AB_USER set name = ?, email = ?, zip_code = ?, address = ?, phone = ?, ship_store = ? " + "where user_id = ?";
 			ps = conn.prepareStatement(UPDATE);
 			if (record.getUserId() != null) {
 				ps.setString(7, record.getUserId());

@@ -15,7 +15,7 @@
            <input autofocus class="form-control" name="name" value="${name}" placeholder="商品名稱" type="text" >
        </div>
        <div class="form-group">
-           <input autofocus class="form-control" name="dscr" value="${dscr}" placeholder="商品描述" type="text" >
+			<textarea name="dscr" rows="2" cols="30" placeholder="商品描述"></textarea>
        </div>
        <div class="form-group">
            <input autofocus class="form-control" name="category" value="${category}" placeholder="類別" type="text" >
