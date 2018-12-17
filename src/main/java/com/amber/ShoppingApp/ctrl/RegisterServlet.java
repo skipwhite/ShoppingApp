@@ -43,7 +43,7 @@ public class RegisterServlet extends BaseHttpServlet {
 		String password2 = request.getParameter("password2");	
 		UserBean record = new UserBean();
 		List<String> errMessage = new ArrayList<String>();
-		String view = "index.jsp";
+		String view = "/";
 		int count = 0;
 		
 		if (!validateEmail(email)) {

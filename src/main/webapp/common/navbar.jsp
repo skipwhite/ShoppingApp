@@ -17,6 +17,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
+		<li><a href="<c:out value='${ctx}'/>/jsp/about.jsp">關於本站</a></li>
+      </ul>
+      <!-- 
+      <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商品分類<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -26,6 +30,7 @@
           </ul>
         </li> 
       </ul>
+       -->
       <form class="navbar-form navbar-left" role="search" action="<c:out value='${ctx}'/>/search" method="get">
         <div class="form-group" id="searchbox">
           <input type="text" name="query" autocomplete="off" class="form-control" id="keyword" placeholder="搜尋商品">

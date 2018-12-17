@@ -52,7 +52,10 @@ public class NewProduct extends HttpServlet {
 //	    InputStream fileContent = filePart.getInputStream();
 //	    byte[] img = IOUtils.toByteArray(fileContent);
 
-	    List<Part> fileParts = request.getParts().stream().filter(part -> "file".equals(part.getName())).collect(Collectors.toList()); // Retrieves <input type="file" name="file" multiple="true">
+		List<Part> fileParts = request.getParts()
+				.stream()
+				.filter(part -> "file".equals(part.getName()))
+				.collect(Collectors.toList()); // Retrieves <input type="file" name="file" multiple="true">
 	    List<byte[]> fileList = new ArrayList<>();
 	    List<ProductImgBean> pibs = new ArrayList<>();
 	    

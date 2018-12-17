@@ -14,7 +14,9 @@
     </div>
     <div class="alert alert-success" role="alert">
     	<h3>您已完成訂購</h3>
-        <button class="btn btn-primary">瀏覽其他訂單</button>
+    	<a href="<c:out value='${ctx}'/>/account?action=myOrder">
+        	<button class="btn btn-primary">瀏覽訂單</button>
+        </a>
     </div>
     
 	<div class="panel panel-warning">
@@ -27,7 +29,7 @@
 						項次
 				</div>
 				<div class="col-sm-7">	
-				產品名稱		
+				產品ID		
 				</div>
 				<div class="col-sm-3">	
 				數量		

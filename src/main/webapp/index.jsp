@@ -46,7 +46,9 @@
 
 	</div>
 </div>
+<!--  
 	<a href="<c:out value='${ctx}'/>/jsp/newProduct.jsp">New Product</a>
+-->
 <script type="text/javascript" src="<c:out value='${ctx}'/>/scripts/index.js" charset="UTF-8"></script>
 <%@ include file="/common/footer.jsp"%>
 </body>

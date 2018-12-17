@@ -54,6 +54,7 @@ public class AccountServlet extends BaseHttpServlet {
 		String view = "/jsp/account/myOrder.jsp";
 		OrderService service = new OrderServiceImpl();
 		List<ODBean> ODList = service.myOrder(bean.getUserId());
+		
 //		List<ODPBean> ODPList = service.myOrder(bean.getUserId());
 		
 		request.setAttribute("ODList", ODList);

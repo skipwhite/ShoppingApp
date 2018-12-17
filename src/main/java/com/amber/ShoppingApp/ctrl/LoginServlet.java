@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +29,13 @@ public class LoginServlet extends BaseHttpServlet {
 		}
 	}
 
-	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		if(request.getSession().getAttribute("login") != null) {
         	request.getSession().invalidate();
         }
 		System.out.println("Logged out");
-		response.sendRedirect("index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/");
+		rd.forward(request, response);
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,7 +55,7 @@ public class LoginServlet extends BaseHttpServlet {
 					}
 					request.getSession().setAttribute("login", bean);
 					if(oriUri == null) {
-						view = "index.jsp";
+						view = "/";
 					} else {
 						view = oriUri;
 					}
@@ -67,6 +69,7 @@ public class LoginServlet extends BaseHttpServlet {
 		}
 		
 		request.setAttribute("errMessage", errMessage);
-		response.sendRedirect(view);
+		RequestDispatcher rd = request.getRequestDispatcher(view);
+		rd.forward(request, response);
 	}
 }

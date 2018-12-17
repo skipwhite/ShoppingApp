@@ -40,7 +40,7 @@
 						項次
 				</div>
 				<div class="col-sm-5">	
-				產品名稱		
+				產品ID		
 				</div>
 				<div class="col-sm-1">	
 				數量		
@@ -58,7 +58,6 @@
 					<div class="col-sm-5">	
 					<input type="hidden" value="${odb.productId}" class="products">
 						${odb.productId}	
-						<span id="productName">應該要顯示產品名稱</span>
 					</div>
 					<div class="col-sm-1">	
 						${odb.qty}	

@@ -1,4 +1,6 @@
-﻿select * from AB_USER;
+﻿update AB_USER set name = ?, email = ?, zip_code = ?, address = ?, phone = ?, ship_store = ?where user_id = ?;
+
+select * from AB_USER;
 TRUNCATE TABLE AB_USER;
 select * from AB_PRODUCT;
 select * from AB_PRODUCT_IMG;

@@ -51,7 +51,7 @@ function reloadBill(){
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var ret = JSON.parse(xhr.responseText);
-			document.getElementById("totalPrice").innerHTML = ret; 
+			document.getElementById("totalPrice").innerHTML = ret + "$"; 
 		}
 	};
 	xhr.send();

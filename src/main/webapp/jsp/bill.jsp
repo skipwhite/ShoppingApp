@@ -68,14 +68,28 @@
     <form method="post" action="<c:out value='${ctx}'/>/bill">
     
         <div>
-        	<ul>
-	        	<li class="billList">
-			          <input id="ship00" class="ship" type="radio" name="shipId" value="0" onchange="hideColumn(this.value)" checked> 宅配 
-	        	</li>
-	        	<li class="billList">
-			          <input id="ship01" class="ship" type="radio" name="shipId" value="1" onchange="hideColumn(this.value)"> 超商取貨
-	        	</li>
-        	</ul>
+			<c:choose>
+			    <c:when test="${param.shipId == 1}">
+		        	<ul>
+			        	<li class="billList">
+					          <input id="ship00" class="ship" type="radio" name="shipId" value="0" onchange="hideColumn(this.value)" > 宅配 
+			        	</li>
+			        	<li class="billList">
+					          <input id="ship01" class="ship" type="radio" name="shipId" value="1" onchange="hideColumn(this.value)" checked> 超商取貨
+			        	</li>
+		        	</ul>
+			    </c:when>    
+			    <c:otherwise>
+		        	<ul>
+			        	<li class="billList">
+					          <input id="ship00" class="ship" type="radio" name="shipId" value="0" onchange="hideColumn(this.value)" checked> 宅配 
+			        	</li>
+			        	<li class="billList">
+					          <input id="ship01" class="ship" type="radio" name="shipId" value="1" onchange="hideColumn(this.value)"> 超商取貨
+			        	</li>
+		        	</ul>
+			    </c:otherwise>
+			</c:choose>	        
         </div>
     <div class="title">
   		<h3 class="curr">付款方式</h3>  
@@ -132,11 +146,12 @@
   <!--使用 FORM SUBMIT 轉頁到電子地圖-->
   <form method="post" name="simulation_from" action="https://map.ezship.com.tw/ezship_map_web.jsp" name="storeSubmit" id="storeCheck">
 	  <!--  <input name="storeSubmit" type="submit" value="選擇門市"> -->
-	  <input type="hidden" name="rtURL"  value="http://localhost:8080/ShoppingApp/bill">
+<!-- 
+	  <input type="hidden" name="rtURL"  value="http://localhost:8080/ShoppingApp/bill?shipId=1">
+ -->
+	  <input type="hidden" name="rtURL"  value="http://45.32.62.57:8080/ShoppingApp/bill?shipId=1">
   </form>
     </div>
-
-
 </div>
 
 <script type="text/javascript" src="<c:out value='${ctx}'/>/scripts/bill.js" charset="UTF-8"></script>
